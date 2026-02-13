@@ -70,117 +70,101 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 font-ito">
-      {/* Header */}
-      <div className="absolute top-4 left-4 md:top-6 md:left-6 right-4 md:right-6 z-10 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Button
-            onClick={onBack}
-            variant="outline"
-            className="bg-white/90 backdrop-blur-sm border-gray-200 text-gray-700 hover:bg-white hover:border-gray-300 shadow-md"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            <span className="hidden sm:inline">Back to Shelf</span>
-            <span className="sm:hidden">Back</span>
-          </Button>
-          <div className="hidden sm:block">
-            <h1 className="text-gray-800 text-xl md:text-2xl font-medium tracking-wide">ito</h1>
-            <p className="text-xs text-gray-500">
-              {language === "tr" ? "1-100 arası bir sayı seç" : "Pick a number from 1 to 100"}
-            </p>
-          </div>
-        </div>
+      {/* Header - Back button and Language switcher */}
+      <div className="absolute top-4 left-4 md:top-6 md:left-6 right-4 md:right-6 z-50 flex items-center justify-between">
+        <Button
+          onClick={onBack}
+          variant="outline"
+          className="bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white shadow-lg font-medium transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Shelf
+        </Button>
 
         {/* Language Switcher */}
         <Button
           onClick={toggleLanguage}
           variant="outline"
-          className="bg-white/90 backdrop-blur-sm border-gray-200 text-gray-700 hover:bg-white hover:border-gray-300 shadow-md font-medium"
+          className="bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white shadow-lg font-medium transition-colors"
         >
           <Languages className="w-4 h-4 mr-2" />
           {language === "tr" ? "EN" : "TR"}
         </Button>
       </div>
 
-      {/* Main Content */}
-      <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 pt-24 sm:pt-28 pb-8">
-        <div className="relative w-full max-w-lg">
-          {/* Stacked cards effect - background cards */}
-          <div className="absolute inset-0 bg-yellow-300/40 rounded-2xl shadow-lg transform rotate-3 translate-x-3 translate-y-3 scale-[0.97]" />
-          <div className="absolute inset-0 bg-yellow-300/60 rounded-2xl shadow-xl transform rotate-1.5 translate-x-1.5 translate-y-1.5 scale-[0.985]" />
+      {/* ito Logo - Geometric, minimalist */}
+      <div className="absolute top-20 sm:top-24 md:top-28 left-1/2 -translate-x-1/2 pointer-events-none z-0">
+        <div className="relative flex items-center justify-center">
+          {/* Geometric circles accent - like the ito game design */}
+          <div className="absolute -left-16 sm:-left-20 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full border-3 border-gray-800/20" />
+          <div className="absolute -right-16 sm:-right-20 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full border-3 border-gray-800/20" />
 
-          {/* Main card */}
+          <h1
+            className="text-gray-900 font-[family-name:var(--font-space-grotesk)] text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-light tracking-wider select-none"
+            style={{
+              letterSpacing: "0.15em",
+            }}
+          >
+            ito
+          </h1>
+
+          {/* Minimalist underline */}
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-0.5 bg-gray-800/30" />
+        </div>
+
+        {/* Subtitle */}
+        <p className="text-center text-gray-600 text-xs sm:text-sm mt-6 tracking-widest font-[family-name:var(--font-space-grotesk)] font-light">
+          {language === "tr" ? "1-100 ARASI BİR SAYI SEÇ" : "PICK A NUMBER FROM 1 TO 100"}
+        </p>
+      </div>
+
+      {/* Main Content */}
+      <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 pt-52 sm:pt-60 md:pt-72 pb-8">
+        <div className="relative w-full max-w-md">
+          {/* Stacked cards effect - background cards */}
+          <div className="absolute inset-0 bg-yellow-400/60 rounded-lg shadow-lg transform rotate-2 translate-x-2 translate-y-2 scale-[0.98]" />
+          <div className="absolute inset-0 bg-yellow-400/80 rounded-lg shadow-xl transform rotate-1 translate-x-1 translate-y-1 scale-[0.99]" />
+
+          {/* Main card - clean yellow like real ITO game cards */}
           <div
-            className={`relative bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl shadow-2xl transition-all duration-300 ${
-              isAnimating ? "scale-95 rotate-2 opacity-90" : "scale-100 rotate-0 opacity-100"
+            className={`relative bg-yellow-400 rounded-lg shadow-2xl transition-all duration-300 ${
+              isAnimating ? "scale-95 opacity-90" : "scale-100 rotate-0 opacity-100"
             }`}
           >
-            {/* Card texture overlay */}
-            <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.3),transparent_50%)]" />
-
             {/* Card content */}
-            <div className="relative p-6 sm:p-8">
-              <div className="min-h-[400px] sm:min-h-[450px] flex flex-col justify-between">
+            <div className="relative p-10 sm:p-14">
+              <div className="min-h-[500px] sm:min-h-[550px] flex flex-col">
                 {currentCategory ? (
                   <div
-                    className={`transition-all duration-300 flex-1 flex flex-col ${
+                    className={`transition-all duration-300 flex-1 flex flex-col justify-between ${
                       isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
                     }`}
                   >
-                    {/* Category Badge */}
-                    <div className="mb-6 text-center">
-                      <div className="inline-block bg-gray-900 text-yellow-400 px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider shadow-lg">
-                        {language === "tr" ? "Kategori" : "Category"}
-                      </div>
+                    {/* Category Text - large and centered */}
+                    <div className="flex-1 flex items-center justify-center">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-gray-900 text-center leading-tight px-4">
+                        {currentCategory.text}
+                      </h2>
                     </div>
 
-                    {/* Category Text */}
-                    <div className="flex-1 flex items-center justify-center mb-8">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl">
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-900 text-center leading-tight">
-                          {currentCategory.text}
-                        </h2>
-                      </div>
-                    </div>
-
-                    {/* Enhanced Spectrum Visualization */}
-                    <div className="space-y-4">
-                      {/* Labels */}
-                      <div className="flex items-center justify-between px-2">
-                        <div className="flex-1 text-left">
-                          <div className="text-xs font-semibold text-gray-800/70 uppercase tracking-wide mb-1">Low</div>
-                          <div className="text-sm sm:text-base font-medium text-gray-900 bg-white/80 px-3 py-1.5 rounded-lg inline-block">
-                            {currentCategory.lowLabel}
-                          </div>
-                        </div>
-                        <div className="flex-1 text-right">
-                          <div className="text-xs font-semibold text-gray-800/70 uppercase tracking-wide mb-1">
-                            {language === "tr" ? "Yüksek" : "High"}
-                          </div>
-                          <div className="text-sm sm:text-base font-medium text-gray-900 bg-white/80 px-3 py-1.5 rounded-lg inline-block">
-                            {currentCategory.highLabel}
-                          </div>
-                        </div>
+                    {/* Spectrum - simple like real cards */}
+                    <div className="space-y-8 mt-auto">
+                      {/* Simple horizontal line with dots */}
+                      <div className="relative py-4">
+                        <div className="h-0.5 bg-gray-900" />
+                        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-3 h-3 bg-gray-900 rounded-full" />
+                        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-3 h-3 bg-gray-900 rounded-full" />
                       </div>
 
-                      {/* Gradient spectrum bar */}
-                      <div className="relative">
-                        <div className="h-3 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-800 rounded-full shadow-inner" />
-                        {/* Tick marks */}
-                        <div className="absolute inset-0 flex justify-between items-center px-0.5">
-                          {[...Array(9)].map((_, i) => (
-                            <div key={i} className="w-0.5 h-5 bg-gray-700/30" />
-                          ))}
+                      {/* Labels below the line */}
+                      <div className="flex items-center justify-between text-gray-900">
+                        <div className="text-left">
+                          <div className="text-3xl sm:text-4xl font-medium mb-2">1</div>
+                          <div className="text-base sm:text-lg">{currentCategory.lowLabel}</div>
                         </div>
-                      </div>
-
-                      {/* Number indicators */}
-                      <div className="flex items-center justify-between">
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-gray-900">
-                          <span className="text-xl sm:text-2xl font-medium text-gray-900">1</span>
-                        </div>
-                        <div className="flex-1 mx-4 h-1 bg-gray-900/20 rounded-full" />
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-gray-900">
-                          <span className="text-lg sm:text-xl font-medium text-gray-900">100</span>
+                        <div className="text-right">
+                          <div className="text-3xl sm:text-4xl font-medium mb-2">100</div>
+                          <div className="text-base sm:text-lg">{currentCategory.highLabel}</div>
                         </div>
                       </div>
                     </div>
@@ -188,7 +172,7 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
                 ) : (
                   // Empty state
                   <div className="flex-1 flex flex-col items-center justify-center text-gray-900">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/90 rounded-full flex items-center justify-center mb-6 shadow-lg">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gray-900/10 rounded-full flex items-center justify-center mb-6">
                       <Shuffle className="w-10 h-10 sm:w-12 sm:h-12 text-gray-900" />
                     </div>
                     <p className="text-xl sm:text-2xl font-medium mb-2">
@@ -206,7 +190,7 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
                 <Button
                   onClick={generateRandomCategory}
                   disabled={isAnimating}
-                  className="w-full h-14 sm:h-16 bg-gray-900 hover:bg-gray-800 text-yellow-400 shadow-xl font-medium rounded-xl transition-all duration-200 disabled:opacity-50 text-base sm:text-lg mt-6"
+                  className="w-full h-14 sm:h-16 bg-gray-900 hover:bg-gray-800 text-white shadow-xl font-medium rounded-lg transition-all duration-200 disabled:opacity-50 text-base sm:text-lg mt-8"
                 >
                   <Shuffle className={`mr-2 h-5 w-5 transition-transform ${isAnimating ? "animate-spin" : ""}`} />
                   {language === "tr"

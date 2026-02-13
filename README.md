@@ -5,8 +5,10 @@ Digital companions for party board games - never lose the prompt cards again!
 ## What is this?
 
 A web app that generates random prompts for board games:
+
 - **ito** - 350+ categories with spectrum labels (1-100)
 - **A Fake Artist Goes to New York** - 100+ drawing prompts with hide/reveal
+- **Just One** - 300+ words for cooperative guessing game
 - **Wavelength** - Coming soon!
 
 ## Features
@@ -41,7 +43,7 @@ Open [http://localhost:3000](http://localhost:3000)
 ```
 app/
 ├── components/        # GameShelf, ErrorBoundary
-├── games/            # ito, fake-artist
+├── games/            # ito, fake-artist, just-one
 └── page.tsx          # Main orchestrator
 
 data/                 # Categories and prompts

@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { Macondo, Roboto } from "next/font/google"
+import { Macondo, Roboto, Permanent_Marker, Space_Grotesk, Pacifico } from "next/font/google"
 import { Suspense } from "react"
 
 // Initialize fonts - Geist is a variable font, no need to specify weights
@@ -23,11 +23,41 @@ const roboto = Roboto({
   display: "swap",
 })
 
+const permanentMarker = Permanent_Marker({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-permanent-marker",
+  display: "swap",
+})
+
+const spaceGrotesk = Space_Grotesk({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+})
+
+const pacifico = Pacifico({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-pacifico",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: "BGHelper - Board Game Companions",
   description:
-    "Digital helpers for ito, A Fake Artist Goes to New York, and more party board games. Never lose the prompt cards again!",
-  keywords: ["board games", "party games", "ito", "fake artist", "wavelength", "game helper", "digital companion"],
+    "Digital helpers for ito, A Fake Artist Goes to New York, Just One, and more party board games. Never lose the prompt cards again!",
+  keywords: [
+    "board games",
+    "party games",
+    "ito",
+    "fake artist",
+    "just one",
+    "wavelength",
+    "game helper",
+    "digital companion",
+  ],
   authors: [{ name: "Serdar" }],
   openGraph: {
     title: "BGHelper - Board Game Companions",
@@ -43,7 +73,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistFont.className} ${macondo.variable} ${roboto.variable}`}>
+      <body
+        className={`${geistFont.className} ${macondo.variable} ${roboto.variable} ${permanentMarker.variable} ${spaceGrotesk.variable} ${pacifico.variable}`}
+      >
         <Suspense fallback="Loading...">{children}</Suspense>
         <Analytics />
       </body>

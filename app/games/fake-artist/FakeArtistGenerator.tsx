@@ -33,10 +33,10 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
         <Button
           onClick={onBack}
           variant="outline"
-          className="bg-[#FBF332]/90 backdrop-blur-sm border-[#FBF332] text-[#D21B7F] hover:bg-[#FBF332] hover:border-[#FBF332] font-bold uppercase"
+          className="bg-[#FBF332] border-2 border-[#D21B7F] text-[#D21B7F] hover:bg-[#D21B7F] hover:text-[#FBF332] shadow-lg font-bold transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">Back</span>
+          Back to Shelf
         </Button>
       </div>
 
@@ -44,15 +44,15 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
       <div className="absolute top-24 sm:top-28 md:top-32 left-1/2 -translate-x-1/2 pointer-events-none z-0">
         <div className="relative">
           {/* Decorative top lines - Art Deco style */}
-          <div 
+          <div
             className="absolute -top-8 sm:-top-10 left-1/2 -translate-x-1/2 w-32 sm:w-40 h-0.5 bg-[#FBF332]/40"
             style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
           />
-          <div 
+          <div
             className="absolute -top-5 sm:-top-6 left-1/2 -translate-x-1/2 w-40 sm:w-48 h-0.5 bg-[#FBF332]/30"
             style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
           />
-          
+
           {/* Main title with vintage flat drop shadow */}
           <h1
             className="text-[#FBF332] font-bold uppercase tracking-[0.05em] font-[family-name:var(--font-macondo)] text-[48px] sm:text-[64px] md:text-6xl lg:text-7xl whitespace-nowrap select-none"
@@ -62,25 +62,27 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
               letterSpacing: "0.05em",
             }}
           >
-            A FAKE ARTIST<br />GOES TO NEW YORK
+            A FAKE ARTIST
+            <br />
+            GOES TO NEW YORK
           </h1>
-          
+
           {/* Decorative bottom lines - Art Deco style */}
-          <div 
+          <div
             className="absolute -bottom-5 sm:-bottom-6 left-1/2 -translate-x-1/2 w-40 sm:w-48 h-0.5 bg-[#FBF332]/30"
             style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
           />
-          <div 
+          <div
             className="absolute -bottom-8 sm:-bottom-10 left-1/2 -translate-x-1/2 w-32 sm:w-40 h-0.5 bg-[#FBF332]/40"
             style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
           />
-          
+
           {/* Art Deco corner ornaments */}
-          <div 
+          <div
             className="absolute -left-16 sm:-left-20 top-1/2 w-8 h-8 border-2 border-[#FBF332]/30"
             style={{ transform: "translateY(-50%) rotate(45deg)" }}
           />
-          <div 
+          <div
             className="absolute -right-16 sm:-right-20 top-1/2 w-8 h-8 border-2 border-[#FBF332]/30"
             style={{ transform: "translateY(-50%) rotate(45deg)" }}
           />
