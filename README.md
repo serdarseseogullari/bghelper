@@ -75,7 +75,7 @@ MIT - See [LICENSE](LICENSE)
 
 ## Contact
 
-Serdar - [GitHub](https://github.com/serdar-q)
+Serdar - [GitHub](https://github.com/serdarseseogullari)
 
 ---
 
