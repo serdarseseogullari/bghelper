@@ -99,7 +99,7 @@ export const itoCategoriesTR: ItoCategory[] = [
   { text: "İlerlemenin istikrarı", lowLabel: "Düzensiz", highLabel: "İstikrarlı" },
   { text: "Çabanın sürekliliği", lowLabel: "Nadir", highLabel: "Sürekli" },
   { text: "Sorunların kalıcılığı", lowLabel: "Geçici", highLabel: "Kalıcı" },
-  { text: "Malzemelerin dayanıklılığı", lowLabel: "Zayıf", highLabel: "Dayanıklı" },
+  { text: "Malzemelerin dayanma gücü", lowLabel: "Zayıf", highLabel: "Dayanıklı" },
   { text: "Ürünlerin uzun ömürlülüğü", lowLabel: "Kısa Ömürlü", highLabel: "Uzun Ömürlü" },
   { text: "İlişkilerin dayanıklılığı", lowLabel: "Kırılgan", highLabel: "Dayanıklı" },
   { text: "Değişimlerin kalıcılığı", lowLabel: "Geçici", highLabel: "Kalıcı" },
