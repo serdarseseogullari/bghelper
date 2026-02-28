@@ -15,6 +15,8 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
   const [currentWord, setCurrentWord] = useState<string | null>(null)
   const [isRevealed, setIsRevealed] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
 
   const generateRandomWord = () => {
     setIsAnimating(true)
@@ -36,6 +38,29 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
 
   const toggleReveal = () => {
     setIsRevealed(!isRevealed)
+  }
+
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if ((isLeftSwipe || isRightSwipe) && !isAnimating) {
+      generateRandomWord()
+    }
   }
 
   return (
@@ -76,11 +101,14 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
       {/* Main Content */}
       <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 pt-48 sm:pt-56 md:pt-64 pb-8">
         <div className="w-full max-w-lg">
-          {/* Main card - clean purple minimalist design */}
+          {/* Main card - clean purple minimalist design with enhanced drop shadow for swipeability */}
           <div
-            className={`bg-white rounded-2xl shadow-2xl border-4 border-purple-500 transition-all duration-300 ${
+            className={`bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(139,92,246,0.5)] border-4 border-purple-500 transition-all duration-300 ${
               isAnimating ? "scale-95 opacity-90" : "scale-100 opacity-100"
             }`}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             <div className="p-8 sm:p-12">
               <div className="min-h-[400px] sm:min-h-[450px] flex flex-col">

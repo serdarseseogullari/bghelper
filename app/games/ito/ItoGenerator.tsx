@@ -19,6 +19,8 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
   const [language, setLanguage] = useState<Language>("en")
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
 
   const generateRandomCategory = () => {
     setIsAnimating(true)
@@ -44,6 +46,29 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
         setIsAnimating(false)
       }
     }, ANIMATION_DURATION)
+  }
+
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if ((isLeftSwipe || isRightSwipe) && !isAnimating) {
+      generateRandomCategory()
+    }
   }
 
   const toggleLanguage = () => {
@@ -130,6 +155,9 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
             className={`relative bg-yellow-400 rounded-lg shadow-2xl transition-all duration-300 ${
               isAnimating ? "scale-95 opacity-90" : "scale-100 rotate-0 opacity-100"
             }`}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             {/* Card content */}
             <div className="relative p-10 sm:p-14">
