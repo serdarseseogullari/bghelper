@@ -114,7 +114,7 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
 
         {/* Subtitle */}
         <p className="text-center text-gray-600 text-xs sm:text-sm mt-6 tracking-widest font-[family-name:var(--font-space-grotesk)] font-light">
-          {language === "tr" ? "1-100 ARASI BİR SAYI SEÇ" : "PICK A NUMBER FROM 1 TO 100"}
+          {language === "tr" ? "" : ""}
         </p>
       </div>
 
