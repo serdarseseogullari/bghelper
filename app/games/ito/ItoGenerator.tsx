@@ -181,7 +181,7 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
                     <p className="text-sm sm:text-base text-gray-800 text-center max-w-xs">
                       {language === "tr"
                         ? "Kategori üret ve 1-100 arası sayını seç"
-                        : "Generate a category and pick your number from 1 to 100"}
+                        : "Generate a theme category to help describe your secret numbers"}
                     </p>
                   </div>
                 )}

@@ -148,7 +148,7 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
                     </div>
                     <p className="text-2xl sm:text-3xl font-semibold mb-3 text-center">Ready to Play?</p>
                     <p className="text-sm sm:text-base text-purple-700 text-center max-w-sm mb-8 px-4">
-                      Generate a word for one player to see. Everyone else gives one-word clues!
+                      Generate a mystery word. One player tries to guess it using clues from others!
                     </p>
                     <Button
                       onClick={generateRandomWord}
@@ -168,7 +168,7 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
           <div className="mt-6 text-center text-sm text-purple-700 px-4">
             <p className="font-medium mb-1">How to Play:</p>
             <p className="text-purple-600">
-              One player sees the word. Others write one-word clues. Duplicates cancel out!
+              Players write one-word clues, one player guesses the word. Identical clues are removed!
             </p>
           </div>
         </div>
