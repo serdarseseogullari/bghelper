@@ -40,8 +40,8 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
         </Button>
       </div>
 
-      {/* Art Deco Title - Above the card */}
-      <div className="absolute top-16 sm:top-24 md:top-32 left-1/2 -translate-x-1/2 pointer-events-none z-0 w-full flex justify-center overflow-hidden">
+      {/* Art Deco Title - absolute overlay on sm+, in-flow on mobile */}
+      <div className="sm:absolute sm:top-24 md:top-32 sm:left-1/2 sm:-translate-x-1/2 pointer-events-none z-0 sm:w-auto w-full flex justify-center pt-16 sm:pt-0">
         <div className="relative">
           {/* Decorative top lines - Art Deco style */}
           <div
@@ -55,7 +55,7 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
 
           {/* Main title with vintage flat drop shadow */}
           <h1
-            className="text-[#FBF332] font-bold uppercase tracking-[0.05em] font-[family-name:var(--font-macondo)] text-[28px] sm:text-[48px] md:text-6xl lg:text-7xl select-none text-center"
+            className="text-[#FBF332] font-bold uppercase font-[family-name:var(--font-macondo)] select-none text-center text-[32px] sm:text-[48px] md:text-6xl lg:text-7xl"
             style={{
               transform: "rotate(-15deg)",
               textShadow: "3px 3px 0px rgba(0, 0, 0, 0.4)",
@@ -89,7 +89,7 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
         </div>
       </div>
 
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 pt-36 sm:pt-52 md:pt-64 relative z-10">
+      <div className="flex flex-col items-center justify-center p-4 sm:p-6 pb-8 sm:pt-52 md:pt-64 sm:min-h-screen relative z-10 mt-8 sm:mt-0">
         <div className="w-full max-w-md">
           <div className="bg-[#D21B7F]/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border-2 border-[#FBF332]/30 shadow-2xl">
             <div className="min-h-[320px] flex flex-col justify-between">
