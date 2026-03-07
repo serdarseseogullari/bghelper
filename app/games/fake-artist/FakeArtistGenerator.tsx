@@ -33,8 +33,7 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
       <div className="shrink-0 h-14 flex items-center px-4 md:px-6 z-50">
         <Button
           onClick={onBack}
-          variant="outline"
-          className="bg-[#FBF332] border-2 border-[#D21B7F] text-[#D21B7F] hover:bg-[#D21B7F] hover:text-[#FBF332] shadow-lg font-bold transition-colors"
+          className="bg-[#FBF332] border-2 border-[#D21B7F] text-[#D21B7F] hover:bg-[#e8b800] hover:border-[#D21B7F] shadow-lg font-bold transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Shelf

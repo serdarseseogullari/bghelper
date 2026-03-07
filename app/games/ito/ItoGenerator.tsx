@@ -97,7 +97,6 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
       <div className="shrink-0 h-14 flex items-center justify-between px-4 md:px-6 z-50">
         <Button
           onClick={onBack}
-          variant="outline"
           className="bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white shadow-lg font-medium transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -106,7 +105,6 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
 
         <Button
           onClick={toggleLanguage}
-          variant="outline"
           className="bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white shadow-lg font-medium transition-colors"
         >
           <Languages className="w-4 h-4 mr-2" />

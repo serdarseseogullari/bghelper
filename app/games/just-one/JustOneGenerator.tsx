@@ -71,7 +71,6 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
       <div className="shrink-0 h-14 flex items-center px-4 md:px-6 z-50">
         <Button
           onClick={onBack}
-          variant="outline"
           className="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white shadow-lg font-medium transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
