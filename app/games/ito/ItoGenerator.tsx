@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Languages } from "lucide-react"
 import { itoCategories, type ItoCategory } from "@/data/ito-categories"
@@ -19,8 +19,8 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
   const [language, setLanguage] = useState<Language>("en")
-  const [touchStart, setTouchStart] = useState(0)
-  const [touchEnd, setTouchEnd] = useState(0)
+  const touchStart = useRef<number | null>(null)
+  const touchEnd = useRef<number | null>(null)
 
   const generateRandomCategory = () => {
     setIsAnimating(true)
@@ -51,18 +51,19 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
   const minSwipeDistance = 50
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(0)
-    setTouchStart(e.targetTouches[0].clientX)
+    touchEnd.current = null
+    touchStart.current = e.targetTouches[0].clientX
   }
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
+    e.preventDefault()
+    touchEnd.current = e.targetTouches[0].clientX
   }
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
+    if (touchStart.current === null || touchEnd.current === null) return
 
-    const distance = touchStart - touchEnd
+    const distance = touchStart.current - touchEnd.current
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
 
@@ -94,7 +95,7 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 font-ito">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 font-ito flex flex-col">
       {/* Header - Back button and Language switcher */}
       <div className="absolute top-4 left-4 md:top-6 md:left-6 right-4 md:right-6 z-50 flex items-center justify-between">
         <Button
@@ -118,14 +119,14 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
       </div>
 
       {/* ito Logo - Geometric, minimalist */}
-      <div className="absolute top-20 sm:top-24 md:top-28 left-1/2 -translate-x-1/2 pointer-events-none z-0">
+      <div className="absolute top-16 sm:top-20 md:top-28 left-1/2 -translate-x-1/2 pointer-events-none z-0">
         <div className="relative flex items-center justify-center">
           {/* Geometric circles accent - like the ito game design */}
           <div className="absolute -left-16 sm:-left-20 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full border-3 border-gray-800/20" />
           <div className="absolute -right-16 sm:-right-20 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full border-3 border-gray-800/20" />
 
           <h1
-            className="text-gray-900 font-[family-name:var(--font-space-grotesk)] text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-light tracking-wider select-none"
+            className="text-gray-900 font-[family-name:var(--font-space-grotesk)] text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-light tracking-wider select-none"
             style={{
               letterSpacing: "0.15em",
             }}
@@ -144,7 +145,7 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
       </div>
 
       {/* Main Content */}
-      <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 pt-52 sm:pt-60 md:pt-72 pb-8">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 pt-44 sm:pt-56 md:pt-72 pb-4 sm:pb-8">
         <div className="relative w-full max-w-md">
           {/* Stacked cards effect - background cards */}
           <div className="absolute inset-0 bg-yellow-400/60 rounded-lg shadow-lg transform rotate-2 translate-x-2 translate-y-2 scale-[0.98]" />
@@ -160,8 +161,8 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
             onTouchEnd={onTouchEnd}
           >
             {/* Card content */}
-            <div className="relative p-10 sm:p-14">
-              <div className="min-h-[500px] sm:min-h-[550px] flex flex-col">
+            <div className="relative p-6 sm:p-10 md:p-14">
+              <div className="flex flex-col">
                 {currentCategory ? (
                   <div
                     className={`transition-all duration-300 flex-1 flex flex-col justify-between ${

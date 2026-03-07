@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Eye, EyeOff } from "lucide-react"
 import { justOneWords } from "@/data/just-one-words"
@@ -15,8 +15,8 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
   const [currentWord, setCurrentWord] = useState<string | null>(null)
   const [isRevealed, setIsRevealed] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [touchStart, setTouchStart] = useState(0)
-  const [touchEnd, setTouchEnd] = useState(0)
+  const touchStart = useRef<number | null>(null)
+  const touchEnd = useRef<number | null>(null)
 
   const generateRandomWord = () => {
     setIsAnimating(true)
@@ -43,23 +43,25 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
   const minSwipeDistance = 50
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(0)
-    setTouchStart(e.targetTouches[0].clientX)
+    touchEnd.current = null
+    touchStart.current = e.targetTouches[0].clientX
   }
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
+    e.preventDefault()
+    touchEnd.current = e.targetTouches[0].clientX
   }
 
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart.current === null || touchEnd.current === null) return
 
-    const distance = touchStart - touchEnd
+    const distance = touchStart.current - touchEnd.current
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
 
-    if ((isLeftSwipe || isRightSwipe) && !isAnimating) {
-      generateRandomWord()
+    if (isLeftSwipe || isRightSwipe) {
+      e.stopPropagation()
+      if (!isAnimating) generateRandomWord()
     }
   }
 
