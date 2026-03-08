@@ -37,19 +37,28 @@ export function GameShelf({ games, onGameSelect }: GameShelfProps) {
     const randomColor = WALL_COLORS[Math.floor(Math.random() * WALL_COLORS.length)]
     setWallColor(randomColor)
 
-    // Check system preference for dark mode
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    if (prefersDark) {
-      setIsDark(true)
-      document.documentElement.classList.add("dark")
+    // Sync with system preference on load
+    const mq = window.matchMedia("(prefers-color-scheme: dark)")
+    const applyDark = (dark: boolean) => {
+      setIsDark(dark)
+      if (dark) {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
+      }
     }
+    applyDark(mq.matches)
 
-    // Preload dark mode texture
+    // Listen for OS-level changes
+    const handler = (e: MediaQueryListEvent) => applyDark(e.matches)
+    mq.addEventListener("change", handler)
+
+    // Preload textures
     const img = new Image()
     img.src = "https://www.transparenttextures.com/patterns/3px-tile.png"
-
-    // Show texture after a small delay to ensure smooth load
     setTimeout(() => setShowTexture(true), 200)
+
+    return () => mq.removeEventListener("change", handler)
   }, [])
 
   const toggleDarkMode = () => {
@@ -174,14 +183,21 @@ export function GameShelf({ games, onGameSelect }: GameShelfProps) {
         </h1>
       </div>
 
-      {/* Neon Sign - BGHelper Logo */}
+      {/* BGHelper Logo */}
       <div className="mb-16 md:mb-20 lg:mb-24 z-20 relative">
-        {/* Light mode: Simple black text */}
-        <h1 className="font-[family-name:var(--font-pacifico)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl select-none text-gray-900 dark:hidden">
+        {/* Light mode: transparent fill + red stroke, paint-order prevents clipping */}
+        <h1
+          className="font-[family-name:var(--font-pacifico)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl select-none dark:hidden"
+          style={{
+            color: "transparent",
+            WebkitTextStroke: "2.5px #e8440a",
+            paintOrder: "stroke fill",
+          }}
+        >
           BGHelper
         </h1>
 
-        {/* Dark mode: Neon effect - exact CodePen style */}
+        {/* Dark mode: Neon effect */}
         <h1
           className="font-[family-name:var(--font-pacifico)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl select-none hidden dark:block"
           style={{
