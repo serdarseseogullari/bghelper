@@ -185,17 +185,29 @@ export function GameShelf({ games, onGameSelect }: GameShelfProps) {
 
       {/* BGHelper Logo */}
       <div className="mb-16 md:mb-20 lg:mb-24 z-20 relative">
-        {/* Light mode: transparent fill + red stroke, paint-order prevents clipping */}
-        <h1
-          className="font-[family-name:var(--font-pacifico)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl select-none dark:hidden"
-          style={{
-            color: "transparent",
-            WebkitTextStroke: "2.5px #e8440a",
-            paintOrder: "stroke fill",
-          }}
+        {/* Light mode: SVG text — paint-order:stroke fill works natively in SVG incl. Safari */}
+        <svg
+          className="dark:hidden select-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl"
+          viewBox="0 0 420 80"
+          width="420"
+          height="80"
+          style={{ overflow: "visible", maxWidth: "90vw", height: "auto" }}
+          aria-label="BGHelper"
         >
-          BGHelper
-        </h1>
+          <text
+            x="50%"
+            y="68"
+            textAnchor="middle"
+            fontFamily="var(--font-pacifico), cursive"
+            fontSize="72"
+            fill="transparent"
+            stroke="#e8440a"
+            strokeWidth="3"
+            paintOrder="stroke fill"
+          >
+            BGHelper
+          </text>
+        </svg>
 
         {/* Dark mode: Neon effect */}
         <h1
