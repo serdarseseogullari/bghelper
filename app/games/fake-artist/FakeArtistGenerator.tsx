@@ -54,7 +54,7 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
           />
 
           <h1
-            className="text-[#FBF332] font-bold uppercase font-[family-name:var(--font-macondo)] select-none text-center text-[clamp(1.6rem,7vw,4rem)]"
+            className="text-[#FBF332] font-bold uppercase font-[family-name:var(--font-macondo)] select-none text-center text-[clamp(1.6rem,7vw,4rem)] leading-[1.1]"
             style={{
               transform: "rotate(-12deg)",
               textShadow: "3px 3px 0px rgba(0,0,0,1)",
