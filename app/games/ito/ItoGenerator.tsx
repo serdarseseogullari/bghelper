@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Languages } from "lucide-react"
 import { itoCategories, type ItoCategory } from "@/data/ito-categories"
@@ -10,11 +11,7 @@ import { ANIMATION_DURATION } from "@/lib/utils/constants"
 
 type Language = "en" | "tr"
 
-interface ItoGeneratorProps {
-  onBack: () => void
-}
-
-export function ItoGenerator({ onBack }: ItoGeneratorProps) {
+export function ItoGenerator() {
   const [currentCategory, setCurrentCategory] = useState<ItoCategory | null>(null)
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -95,12 +92,13 @@ export function ItoGenerator({ onBack }: ItoGeneratorProps) {
 
       {/* Header row */}
       <div className="shrink-0 h-14 flex items-center justify-between px-4 md:px-6 z-50">
-        <Button
-          onClick={onBack}
+        <Button asChild
           className="bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white shadow-lg font-medium transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Shelf
+          <Link href="/">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Shelf
+          </Link>
         </Button>
 
         <Button

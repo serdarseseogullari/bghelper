@@ -1,17 +1,14 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Eye, EyeOff, Shuffle } from "lucide-react"
 import { fakeArtistPrompts, type FakeArtistPrompt } from "@/data/fake-artist-prompts"
 import { getRandomItem } from "@/lib/utils/random"
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
 
-interface FakeArtistGeneratorProps {
-  onBack: () => void
-}
-
-export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
+export function FakeArtistGenerator() {
   const [currentPrompt, setCurrentPrompt] = useState<FakeArtistPrompt | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
   const [isPromptHidden, setIsPromptHidden] = useState(true)
@@ -31,12 +28,13 @@ export function FakeArtistGenerator({ onBack }: FakeArtistGeneratorProps) {
 
       {/* Header row */}
       <div className="shrink-0 h-14 flex items-center px-4 md:px-6 z-50">
-        <Button
-          onClick={onBack}
+        <Button asChild
           className="bg-[#FBF332] border-2 border-[#D21B7F] text-[#D21B7F] hover:bg-[#e8b800] hover:border-[#D21B7F] shadow-lg font-bold transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Shelf
+          <Link href="/">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Shelf
+          </Link>
         </Button>
       </div>
 

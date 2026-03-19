@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { WALL_COLORS, type GameId } from "@/lib/utils/constants"
 
 interface Game {
@@ -13,7 +14,6 @@ interface Game {
 
 interface GameShelfProps {
   games: Game[]
-  onGameSelect: (gameId: GameId) => void
 }
 
 // Fixed Kallax cube dimensions
@@ -28,7 +28,7 @@ const GRID_CONFIGS = {
   xl: { rows: 2, cols: 6 },
 }
 
-export function GameShelf({ games, onGameSelect }: GameShelfProps) {
+export function GameShelf({ games }: GameShelfProps) {
   const [wallColor, setWallColor] = useState("")
   const [isDark, setIsDark] = useState(false)
   const [showTexture, setShowTexture] = useState(false)
@@ -95,7 +95,7 @@ export function GameShelf({ games, onGameSelect }: GameShelfProps) {
               height: `${CUBE_SIZE}px`,
             }}
           >
-            {game ? <GameBox game={game} onClick={() => onGameSelect(game.id)} /> : null}
+            {game ? <GameBox game={game} /> : null}
           </div>
         )
         if (game) gameIndex++
@@ -232,15 +232,14 @@ export function GameShelf({ games, onGameSelect }: GameShelfProps) {
 // Game box component - fills the entire cube interior
 interface GameBoxProps {
   game: Game
-  onClick: () => void
 }
 
-function GameBox({ game, onClick }: GameBoxProps) {
+function GameBox({ game }: GameBoxProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <button
-      onClick={onClick}
+    <Link
+      href={`/games/${game.id}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="absolute inset-0 cursor-pointer group"
@@ -272,6 +271,6 @@ function GameBox({ game, onClick }: GameBoxProps) {
         {/* Wear effect */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15)_0%,transparent_50%)] pointer-events-none" />
       </div>
-    </button>
+    </Link>
   )
 }

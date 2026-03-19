@@ -1,15 +1,12 @@
 "use client"
 
 import { useState, useRef, useMemo } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Eye, EyeOff } from "lucide-react"
 import { justOneWords } from "@/data/just-one-words"
 import { getRandomItem } from "@/lib/utils/random"
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
-
-interface JustOneGeneratorProps {
-  onBack: () => void
-}
 
 const TITLE_LETTERS = ["J", "U", "S", "T", null, "O", "N", "E"]
 const WDTH_VALUES = [85, 105, 90, 75, 0, 110, 80, 100]
@@ -18,7 +15,7 @@ function randomBetween(min: number, max: number) {
   return min + Math.random() * (max - min)
 }
 
-export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
+export function JustOneGenerator() {
   const letterStyles = useMemo(() =>
     TITLE_LETTERS.map((letter, i) => {
       if (!letter) return null
@@ -87,12 +84,13 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
 
       {/* Header row */}
       <div className="shrink-0 h-14 flex items-center px-4 md:px-6 z-50">
-        <Button
-          onClick={onBack}
+        <Button asChild
           className="bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 shadow-lg font-medium transition-colors backdrop-blur-sm"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Shelf
+          <Link href="/">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Shelf
+          </Link>
         </Button>
       </div>
 
