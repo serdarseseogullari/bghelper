@@ -82,70 +82,41 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
       <div className="shrink-0 h-[25dvh] flex items-center justify-center pointer-events-none">
         <div className="relative">
           <h1
-            className="font-[family-name:var(--font-anybody)] select-none flex items-end uppercase"
-            style={{ gap: "clamp(0.15rem, 1vw, 0.5rem)" }}
+            className="font-[family-name:var(--font-anybody)] select-none flex items-baseline uppercase text-white text-[clamp(3rem,12vw,6rem)]"
+            style={{ gap: "clamp(0.05rem, 0.3vw, 0.15rem)" }}
             aria-label="Just One"
           >
-            {/* J — tall & condensed */}
-            <span
-              className="text-white text-[clamp(3.2rem,13vw,6.5rem)] inline-block"
-              style={{
-                fontVariationSettings: "'wght' 800, 'wdth' 65",
-                transform: "rotate(-7deg) translateY(-4px)",
-              }}
-            >J</span>
-            {/* U — wide & heavy */}
-            <span
-              className="text-white text-[clamp(2.6rem,10vw,5rem)] inline-block"
-              style={{
-                fontVariationSettings: "'wght' 700, 'wdth' 130",
-                transform: "rotate(4deg) translateY(2px)",
-              }}
-            >U</span>
-            {/* S — small & extra-wide */}
-            <span
-              className="text-white text-[clamp(2.2rem,8.5vw,4.2rem)] inline-block"
-              style={{
-                fontVariationSettings: "'wght' 900, 'wdth' 110",
-                transform: "rotate(-5deg) translateY(6px)",
-              }}
-            >S</span>
-            {/* T — tall & narrow */}
-            <span
-              className="text-white text-[clamp(3.5rem,14vw,7rem)] inline-block"
-              style={{
-                fontVariationSettings: "'wght' 600, 'wdth' 55",
-                transform: "rotate(8deg) translateY(-6px)",
-              }}
-            >T</span>
+            <span className="inline-block" style={{
+              fontVariationSettings: "'wght' 800, 'wdth' 85",
+              transform: "rotate(-2deg) translateY(1px)",
+            }}>J</span>
+            <span className="inline-block" style={{
+              fontVariationSettings: "'wght' 800, 'wdth' 105",
+              transform: "rotate(1deg) translateY(-1px)",
+            }}>U</span>
+            <span className="inline-block" style={{
+              fontVariationSettings: "'wght' 800, 'wdth' 90",
+              transform: "rotate(-1deg) translateY(2px)",
+            }}>S</span>
+            <span className="inline-block" style={{
+              fontVariationSettings: "'wght' 800, 'wdth' 75",
+              transform: "rotate(2deg) translateY(-1px)",
+            }}>T</span>
 
-            {/* space */}
-            <span className="inline-block w-[clamp(0.5rem,2.5vw,1.2rem)]" />
+            <span className="inline-block w-[0.25em]" />
 
-            {/* O — big & round */}
-            <span
-              className="text-white text-[clamp(3.4rem,13.5vw,6.8rem)] inline-block"
-              style={{
-                fontVariationSettings: "'wght' 900, 'wdth' 140",
-                transform: "rotate(-3deg) translateY(3px)",
-              }}
-            >O</span>
-            {/* N — medium & condensed */}
-            <span
-              className="text-white text-[clamp(2.8rem,11vw,5.5rem)] inline-block"
-              style={{
-                fontVariationSettings: "'wght' 700, 'wdth' 70",
-                transform: "rotate(6deg) translateY(-3px)",
-              }}
-            >N</span>
-            {/* E — chunky & wide */}
-            <span
-              className="text-white text-[clamp(2.5rem,9.5vw,4.8rem)] inline-block"
-              style={{
-                fontVariationSettings: "'wght' 800, 'wdth' 125",
-                transform: "rotate(-8deg) translateY(5px)",
-              }}
-            >E</span>
+            <span className="inline-block" style={{
+              fontVariationSettings: "'wght' 800, 'wdth' 110",
+              transform: "rotate(1deg) translateY(1px)",
+            }}>O</span>
+            <span className="inline-block" style={{
+              fontVariationSettings: "'wght' 800, 'wdth' 80",
+              transform: "rotate(-2deg) translateY(-2px)",
+            }}>N</span>
+            <span className="inline-block" style={{
+              fontVariationSettings: "'wght' 800, 'wdth' 100",
+              transform: "rotate(1.5deg) translateY(2px)",
+            }}>E</span>
           </h1>
         </div>
       </div>
