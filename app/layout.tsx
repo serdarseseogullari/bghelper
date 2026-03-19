@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { Macondo, Roboto, Permanent_Marker, Space_Grotesk, Pacifico } from "next/font/google"
+import { Macondo, Roboto, Permanent_Marker, Space_Grotesk, Pacifico, Dela_Gothic_One } from "next/font/google"
 import { Suspense } from "react"
 
 // Initialize fonts - Geist is a variable font, no need to specify weights
@@ -44,6 +44,13 @@ const pacifico = Pacifico({
   display: "swap",
 })
 
+const delaGothicOne = Dela_Gothic_One({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-dela-gothic",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: "BGHelper - Board Game Companions",
   description:
@@ -74,7 +81,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistFont.className} ${macondo.variable} ${roboto.variable} ${permanentMarker.variable} ${spaceGrotesk.variable} ${pacifico.variable}`}
+        className={`${geistFont.className} ${macondo.variable} ${roboto.variable} ${permanentMarker.variable} ${spaceGrotesk.variable} ${pacifico.variable} ${delaGothicOne.variable}`}
       >
         <Suspense fallback="Loading...">{children}</Suspense>
         <Analytics />

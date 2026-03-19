@@ -82,18 +82,50 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
       <div className="shrink-0 h-[25dvh] flex items-center justify-center pointer-events-none">
         <div className="relative">
           <h1
-            className="text-purple-600 font-[family-name:var(--font-permanent-marker)] text-[clamp(3rem,12vw,6rem)] whitespace-nowrap select-none"
-            style={{
-              transform: "rotate(-3deg)",
-              textShadow: "3px 3px 0px rgba(139, 92, 246, 0.2)",
-            }}
+            className="font-[family-name:var(--font-dela-gothic)] select-none flex items-baseline"
+            style={{ gap: "0.02em" }}
+            aria-label="Just One"
           >
-            Just One
+            {/* J */}
+            <span
+              className="text-purple-700 text-[clamp(2.8rem,11vw,5.5rem)] inline-block"
+              style={{ transform: "rotate(-8deg) translateY(2px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+            >J</span>
+            {/* U */}
+            <span
+              className="text-purple-600 text-[clamp(2.5rem,10vw,5rem)] inline-block"
+              style={{ transform: "rotate(3deg) translateY(-3px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+            >U</span>
+            {/* S */}
+            <span
+              className="text-purple-800 text-[clamp(2.2rem,9vw,4.5rem)] inline-block"
+              style={{ transform: "rotate(-5deg) translateY(4px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+            >S</span>
+            {/* T */}
+            <span
+              className="text-purple-600 text-[clamp(2.9rem,11.5vw,5.8rem)] inline-block"
+              style={{ transform: "rotate(6deg) translateY(-1px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+            >T</span>
+
+            {/* space */}
+            <span className="inline-block w-[0.3em]" />
+
+            {/* O */}
+            <span
+              className="text-purple-700 text-[clamp(3rem,12vw,6rem)] inline-block"
+              style={{ transform: "rotate(-4deg) translateY(3px)", textShadow: "3px 3px 0px rgba(139, 92, 246, 0.25)" }}
+            >O</span>
+            {/* N */}
+            <span
+              className="text-purple-600 text-[clamp(2.6rem,10.5vw,5.2rem)] inline-block"
+              style={{ transform: "rotate(7deg) translateY(-2px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+            >N</span>
+            {/* E */}
+            <span
+              className="text-purple-800 text-[clamp(2.4rem,9.5vw,4.8rem)] inline-block"
+              style={{ transform: "rotate(-6deg) translateY(5px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+            >E</span>
           </h1>
-          <div
-            className="absolute -bottom-3 left-0 right-0 h-1 bg-purple-400/40 rounded-full"
-            style={{ transform: "rotate(-1deg)" }}
-          />
         </div>
       </div>
 
