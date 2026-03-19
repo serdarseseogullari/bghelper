@@ -65,13 +65,13 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
   }
 
   return (
-    <div className="h-[100dvh] overflow-hidden bg-gradient-to-br from-purple-50 via-purple-100 to-violet-100 flex flex-col">
+    <div className="h-[100dvh] overflow-hidden flex flex-col" style={{ background: "linear-gradient(135deg, #a81d5c 0%, #8b1550 50%, #7a1248 100%)" }}>
 
       {/* Header row */}
       <div className="shrink-0 h-14 flex items-center px-4 md:px-6 z-50">
         <Button
           onClick={onBack}
-          className="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white shadow-lg font-medium transition-colors"
+          className="bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 shadow-lg font-medium transition-colors backdrop-blur-sm"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Shelf
@@ -82,48 +82,69 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
       <div className="shrink-0 h-[25dvh] flex items-center justify-center pointer-events-none">
         <div className="relative">
           <h1
-            className="font-[family-name:var(--font-dela-gothic)] select-none flex items-baseline"
-            style={{ gap: "0.02em" }}
+            className="font-[family-name:var(--font-anybody)] select-none flex items-end uppercase"
+            style={{ gap: "clamp(0.15rem, 1vw, 0.5rem)" }}
             aria-label="Just One"
           >
-            {/* J */}
+            {/* J — tall & condensed */}
             <span
-              className="text-purple-700 text-[clamp(2.8rem,11vw,5.5rem)] inline-block"
-              style={{ transform: "rotate(-8deg) translateY(2px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+              className="text-white text-[clamp(3.2rem,13vw,6.5rem)] inline-block"
+              style={{
+                fontVariationSettings: "'wght' 800, 'wdth' 65",
+                transform: "rotate(-7deg) translateY(-4px)",
+              }}
             >J</span>
-            {/* U */}
+            {/* U — wide & heavy */}
             <span
-              className="text-purple-600 text-[clamp(2.5rem,10vw,5rem)] inline-block"
-              style={{ transform: "rotate(3deg) translateY(-3px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+              className="text-white text-[clamp(2.6rem,10vw,5rem)] inline-block"
+              style={{
+                fontVariationSettings: "'wght' 700, 'wdth' 130",
+                transform: "rotate(4deg) translateY(2px)",
+              }}
             >U</span>
-            {/* S */}
+            {/* S — small & extra-wide */}
             <span
-              className="text-purple-800 text-[clamp(2.2rem,9vw,4.5rem)] inline-block"
-              style={{ transform: "rotate(-5deg) translateY(4px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+              className="text-white text-[clamp(2.2rem,8.5vw,4.2rem)] inline-block"
+              style={{
+                fontVariationSettings: "'wght' 900, 'wdth' 110",
+                transform: "rotate(-5deg) translateY(6px)",
+              }}
             >S</span>
-            {/* T */}
+            {/* T — tall & narrow */}
             <span
-              className="text-purple-600 text-[clamp(2.9rem,11.5vw,5.8rem)] inline-block"
-              style={{ transform: "rotate(6deg) translateY(-1px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+              className="text-white text-[clamp(3.5rem,14vw,7rem)] inline-block"
+              style={{
+                fontVariationSettings: "'wght' 600, 'wdth' 55",
+                transform: "rotate(8deg) translateY(-6px)",
+              }}
             >T</span>
 
             {/* space */}
-            <span className="inline-block w-[0.3em]" />
+            <span className="inline-block w-[clamp(0.5rem,2.5vw,1.2rem)]" />
 
-            {/* O */}
+            {/* O — big & round */}
             <span
-              className="text-purple-700 text-[clamp(3rem,12vw,6rem)] inline-block"
-              style={{ transform: "rotate(-4deg) translateY(3px)", textShadow: "3px 3px 0px rgba(139, 92, 246, 0.25)" }}
+              className="text-white text-[clamp(3.4rem,13.5vw,6.8rem)] inline-block"
+              style={{
+                fontVariationSettings: "'wght' 900, 'wdth' 140",
+                transform: "rotate(-3deg) translateY(3px)",
+              }}
             >O</span>
-            {/* N */}
+            {/* N — medium & condensed */}
             <span
-              className="text-purple-600 text-[clamp(2.6rem,10.5vw,5.2rem)] inline-block"
-              style={{ transform: "rotate(7deg) translateY(-2px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+              className="text-white text-[clamp(2.8rem,11vw,5.5rem)] inline-block"
+              style={{
+                fontVariationSettings: "'wght' 700, 'wdth' 70",
+                transform: "rotate(6deg) translateY(-3px)",
+              }}
             >N</span>
-            {/* E */}
+            {/* E — chunky & wide */}
             <span
-              className="text-purple-800 text-[clamp(2.4rem,9.5vw,4.8rem)] inline-block"
-              style={{ transform: "rotate(-6deg) translateY(5px)", textShadow: "2px 3px 0px rgba(139, 92, 246, 0.25)" }}
+              className="text-white text-[clamp(2.5rem,9.5vw,4.8rem)] inline-block"
+              style={{
+                fontVariationSettings: "'wght' 800, 'wdth' 125",
+                transform: "rotate(-8deg) translateY(5px)",
+              }}
             >E</span>
           </h1>
         </div>
@@ -134,7 +155,7 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
         <div className="w-full max-w-lg mx-auto flex flex-col">
           {/* Main card */}
           <div
-            className={`bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(139,92,246,0.5)] border-4 border-purple-500 transition-all duration-300 flex-1 flex flex-col ${
+            className={`bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border-4 border-white/20 transition-all duration-300 flex-1 flex flex-col ${
               isAnimating ? "scale-95 opacity-90" : "scale-100 opacity-100"
             }`}
             onTouchStart={onTouchStart}
@@ -154,16 +175,17 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
                       {!isRevealed && (
                         <button
                           onClick={toggleReveal}
-                          className="w-full bg-purple-500 hover:bg-purple-600 text-white rounded-xl py-12 sm:py-20 transition-all duration-200 group shadow-lg hover:shadow-xl"
+                          className="w-full rounded-xl py-12 sm:py-20 transition-all duration-200 group shadow-lg hover:shadow-xl text-white"
+                          style={{ background: "linear-gradient(135deg, #a81d5c, #8b1550)" }}
                         >
                           <Eye className="w-10 h-10 sm:w-16 sm:h-16 mx-auto mb-3 group-hover:scale-110 transition-transform" />
                           <p className="text-lg sm:text-2xl font-semibold">Tap to Reveal Word</p>
-                          <p className="text-sm text-purple-100 mt-1">One player only</p>
+                          <p className="text-sm text-white/60 mt-1">One player only</p>
                         </button>
                       )}
 
                       {isRevealed && (
-                        <div className="w-full bg-purple-500 text-white rounded-xl py-12 sm:py-20 shadow-lg">
+                        <div className="w-full text-white rounded-xl py-12 sm:py-20 shadow-lg" style={{ background: "linear-gradient(135deg, #a81d5c, #8b1550)" }}>
                           <div className="text-center px-6">
                             <h2 className="text-[clamp(2.5rem,10vw,5rem)] font-bold tracking-tight break-words">
                               {currentWord}
@@ -180,7 +202,7 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
                       <Button
                         onClick={toggleReveal}
                         variant="outline"
-                        className="w-full h-11 border-2 border-purple-500 text-purple-700 hover:bg-purple-50 font-medium rounded-lg"
+                        className="w-full h-11 border-2 border-[#a81d5c] text-[#a81d5c] hover:bg-[#a81d5c]/10 font-medium rounded-lg"
                       >
                         <EyeOff className="mr-2 h-5 w-5" />
                         Hide Word
@@ -189,7 +211,7 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
                     <Button
                       onClick={generateRandomWord}
                       disabled={isAnimating}
-                      className="w-full h-12 sm:h-14 bg-purple-600 hover:bg-purple-700 text-white shadow-lg font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 text-base sm:text-lg"
+                      className="w-full h-12 sm:h-14 bg-[#a81d5c] hover:bg-[#8b1550] text-white shadow-lg font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 text-base sm:text-lg"
                     >
                       <Shuffle className={`mr-2 h-5 w-5 transition-transform ${isAnimating ? "animate-spin" : ""}`} />
                       {isAnimating ? "Getting New Word..." : "Next Word"}
@@ -198,18 +220,18 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
                 </div>
               ) : (
                 // Empty state
-                <div className="flex-1 flex flex-col items-center justify-center text-purple-900">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                    <Shuffle className="w-8 h-8 sm:w-10 sm:h-10 text-purple-600" />
+                <div className="flex-1 flex flex-col items-center justify-center text-[#6b1040]">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#a81d5c]/10 rounded-full flex items-center justify-center mb-4">
+                    <Shuffle className="w-8 h-8 sm:w-10 sm:h-10 text-[#a81d5c]" />
                   </div>
                   <p className="text-2xl sm:text-3xl font-semibold mb-3 text-center">Ready to Play?</p>
-                  <p className="text-sm sm:text-base text-purple-700 text-center max-w-sm mb-8 px-4">
+                  <p className="text-sm sm:text-base text-[#a81d5c]/70 text-center max-w-sm mb-8 px-4">
                     Generate a mystery word. One player tries to guess it using clues from others!
                   </p>
                   <Button
                     onClick={generateRandomWord}
                     disabled={isAnimating}
-                    className="w-full h-12 sm:h-14 bg-purple-600 hover:bg-purple-700 text-white shadow-lg font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 text-base sm:text-lg"
+                    className="w-full h-12 sm:h-14 bg-[#a81d5c] hover:bg-[#8b1550] text-white shadow-lg font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 text-base sm:text-lg"
                   >
                     <Shuffle className={`mr-2 h-5 w-5 transition-transform ${isAnimating ? "animate-spin" : ""}`} />
                     Generate Word
