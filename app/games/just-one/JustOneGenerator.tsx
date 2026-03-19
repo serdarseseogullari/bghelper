@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Eye, EyeOff } from "lucide-react"
 import { justOneWords } from "@/data/just-one-words"
@@ -11,7 +11,25 @@ interface JustOneGeneratorProps {
   onBack: () => void
 }
 
+const TITLE_LETTERS = ["J", "U", "S", "T", null, "O", "N", "E"]
+const WDTH_VALUES = [85, 105, 90, 75, 0, 110, 80, 100]
+
+function randomBetween(min: number, max: number) {
+  return min + Math.random() * (max - min)
+}
+
 export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
+  const letterStyles = useMemo(() =>
+    TITLE_LETTERS.map((letter, i) => {
+      if (!letter) return null
+      return {
+        scale: randomBetween(0.85, 1.05),
+        rotate: randomBetween(-2.5, 2.5),
+        translateY: randomBetween(-2, 2),
+        wdth: WDTH_VALUES[i],
+      }
+    }), [])
+
   const [currentWord, setCurrentWord] = useState<string | null>(null)
   const [isRevealed, setIsRevealed] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -86,37 +104,21 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
             style={{ gap: "clamp(0.05rem, 0.3vw, 0.15rem)" }}
             aria-label="Just One"
           >
-            <span className="inline-block text-[0.95em]" style={{
-              fontVariationSettings: "'wght' 800, 'wdth' 85",
-              transform: "rotate(-2deg) translateY(1px)",
-            }}>J</span>
-            <span className="inline-block text-[0.88em]" style={{
-              fontVariationSettings: "'wght' 800, 'wdth' 105",
-              transform: "rotate(1deg) translateY(-1px)",
-            }}>U</span>
-            <span className="inline-block text-[1.05em]" style={{
-              fontVariationSettings: "'wght' 800, 'wdth' 90",
-              transform: "rotate(-1deg) translateY(2px)",
-            }}>S</span>
-            <span className="inline-block text-[0.92em]" style={{
-              fontVariationSettings: "'wght' 800, 'wdth' 75",
-              transform: "rotate(2deg) translateY(-1px)",
-            }}>T</span>
-
-            <span className="inline-block w-[0.25em]" />
-
-            <span className="inline-block text-[1.02em]" style={{
-              fontVariationSettings: "'wght' 800, 'wdth' 110",
-              transform: "rotate(1deg) translateY(1px)",
-            }}>O</span>
-            <span className="inline-block text-[0.85em]" style={{
-              fontVariationSettings: "'wght' 800, 'wdth' 80",
-              transform: "rotate(-2deg) translateY(-2px)",
-            }}>N</span>
-            <span className="inline-block text-[0.97em]" style={{
-              fontVariationSettings: "'wght' 800, 'wdth' 100",
-              transform: "rotate(1.5deg) translateY(2px)",
-            }}>E</span>
+            {TITLE_LETTERS.map((letter, i) => {
+              if (!letter) return <span key={i} className="inline-block w-[0.25em]" />
+              const s = letterStyles[i]!
+              return (
+                <span
+                  key={i}
+                  className="inline-block"
+                  style={{
+                    fontSize: `${s.scale}em`,
+                    fontVariationSettings: `'wght' 800, 'wdth' ${s.wdth}`,
+                    transform: `rotate(${s.rotate}deg) translateY(${s.translateY}px)`,
+                  }}
+                >{letter}</span>
+              )
+            })}
           </h1>
         </div>
       </div>
