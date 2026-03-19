@@ -86,34 +86,34 @@ export function JustOneGenerator({ onBack }: JustOneGeneratorProps) {
             style={{ gap: "clamp(0.05rem, 0.3vw, 0.15rem)" }}
             aria-label="Just One"
           >
-            <span className="inline-block" style={{
+            <span className="inline-block text-[0.95em]" style={{
               fontVariationSettings: "'wght' 800, 'wdth' 85",
               transform: "rotate(-2deg) translateY(1px)",
             }}>J</span>
-            <span className="inline-block" style={{
+            <span className="inline-block text-[0.88em]" style={{
               fontVariationSettings: "'wght' 800, 'wdth' 105",
               transform: "rotate(1deg) translateY(-1px)",
             }}>U</span>
-            <span className="inline-block" style={{
+            <span className="inline-block text-[1.05em]" style={{
               fontVariationSettings: "'wght' 800, 'wdth' 90",
               transform: "rotate(-1deg) translateY(2px)",
             }}>S</span>
-            <span className="inline-block" style={{
+            <span className="inline-block text-[0.92em]" style={{
               fontVariationSettings: "'wght' 800, 'wdth' 75",
               transform: "rotate(2deg) translateY(-1px)",
             }}>T</span>
 
             <span className="inline-block w-[0.25em]" />
 
-            <span className="inline-block" style={{
+            <span className="inline-block text-[1.02em]" style={{
               fontVariationSettings: "'wght' 800, 'wdth' 110",
               transform: "rotate(1deg) translateY(1px)",
             }}>O</span>
-            <span className="inline-block" style={{
+            <span className="inline-block text-[0.85em]" style={{
               fontVariationSettings: "'wght' 800, 'wdth' 80",
               transform: "rotate(-2deg) translateY(-2px)",
             }}>N</span>
-            <span className="inline-block" style={{
+            <span className="inline-block text-[0.97em]" style={{
               fontVariationSettings: "'wght' 800, 'wdth' 100",
               transform: "rotate(1.5deg) translateY(2px)",
             }}>E</span>
