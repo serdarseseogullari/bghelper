@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { Macondo, Roboto, Permanent_Marker, Space_Grotesk, Pacifico, Anybody, Cinzel_Decorative, Cinzel, Questrial } from "next/font/google"
+import { Macondo, Roboto, Permanent_Marker, Space_Grotesk, Pacifico, Anybody, Cinzel_Decorative, Cinzel, Outfit } from "next/font/google"
 import { Suspense } from "react"
 
 // Initialize fonts - Geist is a variable font, no need to specify weights
@@ -65,10 +65,10 @@ const cinzel = Cinzel({
   display: "swap",
 })
 
-const questrial = Questrial({
-  weight: ["400"],
+const outfit = Outfit({
+  weight: ["300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
-  variable: "--font-questrial",
+  variable: "--font-outfit",
   display: "swap",
 })
 
@@ -102,7 +102,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistFont.className} ${macondo.variable} ${roboto.variable} ${permanentMarker.variable} ${spaceGrotesk.variable} ${pacifico.variable} ${anybody.variable} ${cinzelDecorative.variable} ${cinzel.variable} ${questrial.variable}`}
+        className={`${geistFont.className} ${macondo.variable} ${roboto.variable} ${permanentMarker.variable} ${spaceGrotesk.variable} ${pacifico.variable} ${anybody.variable} ${cinzelDecorative.variable} ${cinzel.variable} ${outfit.variable}`}
       >
         <Suspense fallback="Loading...">{children}</Suspense>
         <Analytics />

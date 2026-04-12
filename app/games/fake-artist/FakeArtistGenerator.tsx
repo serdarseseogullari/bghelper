@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Eye, EyeOff, Shuffle } from "lucide-react"
@@ -12,6 +12,14 @@ export function FakeArtistGenerator() {
   const [currentPrompt, setCurrentPrompt] = useState<FakeArtistPrompt | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
   const [isPromptHidden, setIsPromptHidden] = useState(true)
+  const [dateMonth, setDateMonth] = useState("")
+  const [dateDay, setDateDay] = useState("")
+
+  useEffect(() => {
+    const d = new Date()
+    setDateMonth(d.toLocaleDateString("en-US", { month: "short" }))
+    setDateDay(d.toLocaleDateString("en-US", { day: "numeric" }))
+  }, [])
 
   const generateRandomPrompt = () => {
     setIsAnimating(true)
@@ -38,19 +46,17 @@ export function FakeArtistGenerator() {
         </Button>
       </div>
 
-      {/* Title zone — ~28vh, clipped so rotation stays contained */}
+      {/* Title zone */}
       <div className="shrink-0 h-[28dvh] flex items-center justify-center pointer-events-none overflow-hidden">
-        <div className="relative">
-          {/* Decorative lines */}
+        <div className="relative flex items-center justify-center">
           <div
-            className="absolute -top-8 left-1/2 w-32 sm:w-40 h-0.5 bg-[#FBF332]/40"
-            style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
+            className="hidden sm:block absolute -left-20 top-1/2 w-8 h-8 border-2 border-[#FBF332]/30"
+            style={{ transform: "translateY(-50%) rotate(45deg)" }}
           />
           <div
-            className="absolute -top-5 left-1/2 w-40 sm:w-48 h-0.5 bg-[#FBF332]/30"
-            style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
+            className="hidden sm:block absolute -right-20 top-1/2 w-8 h-8 border-2 border-[#FBF332]/30"
+            style={{ transform: "translateY(-50%) rotate(45deg)" }}
           />
-
           <h1
             className="text-[#FBF332] font-bold uppercase font-[family-name:var(--font-macondo)] select-none text-center text-[clamp(1.6rem,7vw,4rem)] leading-[1.1]"
             style={{
@@ -63,105 +69,141 @@ export function FakeArtistGenerator() {
             <br />
             GOES TO NEW YORK
           </h1>
-
-          <div
-            className="absolute -bottom-5 left-1/2 w-40 sm:w-48 h-0.5 bg-[#FBF332]/30"
-            style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
-          />
-          <div
-            className="absolute -bottom-8 left-1/2 w-32 sm:w-40 h-0.5 bg-[#FBF332]/40"
-            style={{ transform: "translateX(-50%) rotate(-22.5deg)" }}
-          />
-
-          {/* Art Deco corner ornaments — sm+ only */}
-          <div
-            className="hidden sm:block absolute -left-20 top-1/2 w-8 h-8 border-2 border-[#FBF332]/30"
-            style={{ transform: "translateY(-50%) rotate(45deg)" }}
-          />
-          <div
-            className="hidden sm:block absolute -right-20 top-1/2 w-8 h-8 border-2 border-[#FBF332]/30"
-            style={{ transform: "translateY(-50%) rotate(45deg)" }}
-          />
         </div>
       </div>
 
-      {/* Card zone — fills remaining space */}
+      {/* Card zone */}
       <div className="flex-1 flex items-stretch px-4 sm:px-6 pb-4 sm:pb-6 min-h-0">
         <div className="w-full max-w-md mx-auto flex flex-col">
-          <div className="bg-[#D21B7F]/90 backdrop-blur-sm rounded-2xl border-2 border-[#FBF332]/30 shadow-2xl flex-1 flex flex-col">
-            <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-              {currentPrompt ? (
-                <div
-                  className={`transition-all duration-300 flex-1 flex flex-col justify-between ${isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
-                >
-                  <div>
-                    <div className="mb-6">
-                      <div className="text-[#FBF332] text-xs font-medium mb-2 uppercase tracking-wide">
-                        Category
-                      </div>
-                      <h2 className="text-[clamp(2rem,8vw,3.5rem)] font-bold text-[#FBF332] uppercase font-[family-name:var(--font-macondo)] leading-tight">
-                        {currentPrompt.category}
-                      </h2>
-                    </div>
+          <div
+            className={`relative rounded-xl flex-1 flex flex-col overflow-hidden transition-all duration-300 ${
+              isAnimating ? "scale-95 opacity-80" : "scale-100 opacity-100"
+            }`}
+            style={{
+              backgroundColor: "#fff",
+              /* outer black border via box-shadow so it sits outside the card, doesn't eat into content */
+              boxShadow: "0 0 0 6px #000000, 0 20px 60px rgba(0,0,0,0.45)",
+            }}
+          >
+            {/* Paper texture overlay */}
+            <div
+              className="absolute inset-0 pointer-events-none z-10"
+              style={{
+                backgroundImage: 'url("/textures/paper.png")',
+                backgroundRepeat: "repeat",
+                opacity: 0.22,
+                mixBlendMode: "multiply",
+              }}
+            />
 
-                    <div className="mb-6">
-                      <div className="text-[#FBF332] text-xs font-medium mb-2 uppercase tracking-wide">
-                        Prompt
-                      </div>
-                      {isPromptHidden ? (
-                        <div className="text-[#FBF332] text-[clamp(2rem,8vw,3.5rem)] font-bold opacity-30 uppercase tracking-widest font-[family-name:var(--font-macondo)]">
-                          *****
-                        </div>
-                      ) : (
-                        <h3 className="text-[clamp(2rem,8vw,3.5rem)] font-bold text-[#FBF332] uppercase font-[family-name:var(--font-macondo)] leading-tight">
-                          {currentPrompt.prompt}
-                        </h3>
-                      )}
-                    </div>
-                  </div>
+            {/* Card info header — CSS grid: 2 cols × 3 rows (theme | separator | title), date spans all rows */}
+            <div
+              className="relative z-20"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr auto",
+                gridTemplateRows: "auto 2px auto",
+                borderBottom: "2px solid #D21B7F",
+              }}
+            >
+              {/* Theme row — col 1, row 1 */}
+              <div className="px-5 sm:px-7 pt-4 pb-3" style={{ gridArea: "1 / 1" }}>
+                <div className="flex items-baseline gap-2">
+                  <span
+                    className="text-[#D21B7F] text-xs uppercase tracking-widest font-medium shrink-0"
+                    style={{ width: "2.8rem" }}
+                  >
+                    Theme
+                  </span>
+                  <span className="text-[#D21B7F] font-bold uppercase font-[family-name:var(--font-macondo)] text-base sm:text-lg leading-tight truncate">
+                    {currentPrompt?.category ?? "—"}
+                  </span>
+                </div>
+              </div>
 
-                  <div className="flex flex-col gap-3">
-                    <Button
-                      onClick={() => setIsPromptHidden(!isPromptHidden)}
-                      variant="outline"
-                      className="w-full h-11 bg-transparent border-2 border-[#FBF332] text-[#FBF332] hover:bg-[#FBF332]/10 shadow-lg font-bold rounded-xl transition-all duration-200 text-sm uppercase"
-                    >
-                      {isPromptHidden ? (
-                        <><Eye className="mr-2 h-4 w-4" />Show Prompt</>
-                      ) : (
-                        <><EyeOff className="mr-2 h-4 w-4" />Hide Prompt</>
-                      )}
-                    </Button>
-                    <Button
-                      onClick={generateRandomPrompt}
-                      disabled={isAnimating}
-                      variant="outline"
-                      className="w-full h-11 bg-transparent border-2 border-[#FBF332] text-[#FBF332] hover:bg-[#FBF332]/10 shadow-lg font-bold rounded-xl transition-all duration-200 disabled:opacity-50 text-sm uppercase"
-                    >
-                      <Shuffle className={`mr-2 h-4 w-4 transition-transform ${isAnimating ? "animate-spin" : ""}`} />
-                      {isAnimating ? "Generating..." : "New Prompt"}
-                    </Button>
+              {/* Separator — row 2, left column only (date cell stays merged/clean) */}
+              <div style={{ gridArea: "2 / 1 / 3 / 2", background: "#D21B7F" }} />
+
+              {/* Title row — col 1, row 3 */}
+              <div className="px-5 sm:px-7 pt-3 pb-4" style={{ gridArea: "3 / 1" }}>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="text-[#D21B7F] text-xs uppercase tracking-widest font-medium shrink-0"
+                    style={{ width: "2.8rem" }}
+                  >
+                    Title
+                  </span>
+                  {/* Fixed-height container so show/hide never shifts layout */}
+                  <div style={{ minHeight: "1.65rem", display: "flex", alignItems: "center" }}>
+                    {!currentPrompt ? (
+                      <span className="text-[#D21B7F]/25 text-sm">—</span>
+                    ) : isPromptHidden ? (
+                      <span className="text-[#D21B7F]/40 font-bold font-[family-name:var(--font-macondo)] text-base sm:text-lg tracking-widest">
+                        {"*".repeat(Math.min(currentPrompt.prompt.length, 8))}
+                      </span>
+                    ) : (
+                      <span className="text-[#D21B7F] font-bold uppercase font-[family-name:var(--font-macondo)] text-base sm:text-lg leading-tight">
+                        {currentPrompt.prompt}
+                      </span>
+                    )}
                   </div>
                 </div>
-              ) : (
-                <div className="flex-1 flex flex-col justify-between">
-                  <div className="flex-1 flex flex-col items-center justify-center text-[#FBF332]">
-                    <div className="w-14 h-14 border-2 border-[#FBF332] rounded-full flex items-center justify-center mb-4">
-                      <Shuffle className="w-7 h-7 text-[#FBF332]" />
-                    </div>
-                    <p className="text-base font-bold uppercase">Generate your first prompt</p>
-                  </div>
+              </div>
 
+              {/* Date — col 2, spans all 3 rows (theme + separator + title) */}
+              <div
+                style={{
+                  gridArea: "1 / 2 / 4 / 3",
+                  borderLeft: "2px solid #D21B7F",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "0 1.1rem",
+                  minWidth: "70px",
+                }}
+              >
+                <div className="flex flex-col items-center leading-none gap-0.5">
+                  <span className="text-[#D21B7F] text-xs uppercase tracking-widest font-medium">
+                    {dateMonth}
+                  </span>
+                  <span className="text-[#D21B7F] text-4xl font-bold font-[family-name:var(--font-macondo)] leading-none">
+                    {dateDay}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Canvas / action area */}
+            <div className="relative z-20 flex-1 flex flex-col items-center justify-center gap-3 p-6 sm:p-8">
+              {currentPrompt ? (
+                <>
+                  <Button
+                    onClick={() => setIsPromptHidden(v => !v)}
+                    className="w-full max-w-xs h-12 bg-[#D21B7F] hover:bg-[#b81870] text-white font-bold rounded-xl shadow-md transition-colors"
+                  >
+                    {isPromptHidden
+                      ? <><Eye className="mr-2 h-4 w-4" />Show Title</>
+                      : <><EyeOff className="mr-2 h-4 w-4" />Hide Title</>
+                    }
+                  </Button>
                   <Button
                     onClick={generateRandomPrompt}
                     disabled={isAnimating}
-                    variant="outline"
-                    className="w-full h-11 bg-transparent border-2 border-[#FBF332] text-[#FBF332] hover:bg-[#FBF332]/10 shadow-lg font-bold rounded-xl transition-all duration-200 disabled:opacity-50 text-sm uppercase"
+                    className="w-full max-w-xs h-12 bg-[#D21B7F] hover:bg-[#b81870] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50"
                   >
-                    <Shuffle className={`mr-2 h-4 w-4 transition-transform ${isAnimating ? "animate-spin" : ""}`} />
-                    {isAnimating ? "Generating..." : "Generate"}
+                    <Shuffle className={`mr-2 h-4 w-4 ${isAnimating ? "animate-spin" : ""}`} />
+                    {isAnimating ? "Generating..." : "New Prompt"}
                   </Button>
-                </div>
+                </>
+              ) : (
+                <Button
+                  onClick={generateRandomPrompt}
+                  disabled={isAnimating}
+                  className="w-full max-w-xs h-12 bg-[#D21B7F] hover:bg-[#b81870] text-white font-bold rounded-xl shadow-md transition-colors disabled:opacity-50"
+                >
+                  <Shuffle className={`mr-2 h-4 w-4 ${isAnimating ? "animate-spin" : ""}`} />
+                  {isAnimating ? "Generating..." : "Generate Prompt"}
+                </Button>
               )}
             </div>
           </div>

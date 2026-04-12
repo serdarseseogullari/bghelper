@@ -111,7 +111,7 @@ export function PhantomInkGenerator() {
         </div>
         <p
           className="mt-2 text-xs font-[family-name:var(--font-cinzel)] uppercase tracking-widest"
-          style={{ color: "#C9A84C", opacity: 0.5, letterSpacing: "0.2em" }}
+          style={{ color: "#C9A84C", opacity: 0.75, letterSpacing: "0.2em" }}
         >
           Object Cards
         </p>

@@ -143,13 +143,13 @@ export function GameShelf({ games }: GameShelfProps) {
           ? {
               backgroundColor: "#010a00",
               backgroundImage: showTexture
-                ? 'url("https://www.transparenttextures.com/patterns/3px-tile.png")'
+                ? 'url("/textures/3px-tile.png")'
                 : "none",
             }
           : {
               backgroundColor: "#f7f7f5",
               backgroundImage: showTexture
-                ? 'url("https://www.transparenttextures.com/patterns/concrete-wall.png")'
+                ? 'url("/textures/concrete-wall.png")'
                 : "none",
             }
       }
@@ -170,18 +170,6 @@ export function GameShelf({ games }: GameShelfProps) {
           </svg>
         )}
       </button>
-
-      {/* Subtle background text - only in light mode */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden dark:hidden">
-        <h1
-          className="font-[family-name:var(--font-space-grotesk)] font-bold text-[12vw] sm:text-[10vw] md:text-[8vw] tracking-wider opacity-[0.04] select-none"
-          style={{
-            letterSpacing: "0.2em",
-          }}
-        >
-          BGHELPER
-        </h1>
-      </div>
 
       {/* BGHelper Logo */}
       <div className="mb-16 md:mb-20 lg:mb-24 z-20 relative">

@@ -225,7 +225,7 @@ export function WavelengthGenerator() {
   return (
     <div
       className="h-[100dvh] overflow-hidden flex flex-col relative"
-      style={{ background: "rgb(1,6,37)", fontFamily: "var(--font-questrial), sans-serif" }}
+      style={{ background: "rgb(1,6,37)", fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <Starfield />
 
@@ -316,12 +316,13 @@ export function WavelengthGenerator() {
       {/* Title */}
       <div className="shrink-0 h-[18dvh] landscape:h-[12dvh] flex flex-col items-center justify-center pointer-events-none px-4 z-10 relative">
         <h1
-          className="font-black text-[clamp(2.2rem,9vw,4.5rem)] select-none tracking-tight"
+          className="text-[clamp(2.2rem,9vw,4.5rem)] select-none"
           style={{
-            fontFamily: "var(--font-questrial), sans-serif",
+            fontFamily: "var(--font-outfit), sans-serif",
+            fontWeight: 800,
             color: "#fff",
             textShadow: "0 0 24px rgba(180,130,255,0.55), 0 0 70px rgba(100,80,200,0.25)",
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.02em",
           }}
         >
           Wavelength
@@ -358,8 +359,8 @@ export function WavelengthGenerator() {
                     <SpectrumArrowLeft />
                   </div>
                   <h2
-                    className="text-center text-[clamp(1.1rem,3.5vw,1.9rem)] font-semibold leading-tight"
-                    style={{ color: "#1a120a", letterSpacing: "-0.01em" }}
+                    className="text-center text-[clamp(1.1rem,3.5vw,1.9rem)] leading-tight"
+                    style={{ color: "#1a120a", letterSpacing: "-0.01em", fontWeight: 600 }}
                   >
                     {currentCard.left}
                   </h2>
@@ -377,8 +378,8 @@ export function WavelengthGenerator() {
                     <SpectrumArrowRight />
                   </div>
                   <h2
-                    className="text-center text-[clamp(1.1rem,3.5vw,1.9rem)] font-semibold leading-tight"
-                    style={{ color: "#1a120a", letterSpacing: "-0.01em" }}
+                    className="text-center text-[clamp(1.1rem,3.5vw,1.9rem)] leading-tight"
+                    style={{ color: "#1a120a", letterSpacing: "-0.01em", fontWeight: 600 }}
                   >
                     {currentCard.right}
                   </h2>
@@ -412,7 +413,7 @@ export function WavelengthGenerator() {
                 style={{
                   border: "1px solid rgba(255,255,255,0.15)",
                   color: "rgba(255,255,255,0.4)",
-                  fontFamily: "var(--font-questrial), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                 }}
               >
                 {currentCard ? PACK_LABELS[currentCard.pack] : "–"}
@@ -426,7 +427,7 @@ export function WavelengthGenerator() {
                   border: "1px solid rgba(255,255,255,0.7)",
                   color: "#fff",
                   background: "transparent",
-                  fontFamily: "var(--font-questrial), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                   letterSpacing: "0.01em",
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.1)" }}
