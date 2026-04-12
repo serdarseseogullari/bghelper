@@ -24,6 +24,20 @@ const games = [
     bgColor: "bg-purple-500",
     textColor: "text-white",
   },
+  {
+    id: GAME_IDS.PHANTOM_INK,
+    name: "Phantom Ink",
+    available: true,
+    bgColor: "bg-[#0d0b08]",
+    textColor: "text-[#C9A84C]",
+  },
+  {
+    id: GAME_IDS.WAVELENGTH,
+    name: "Wavelength",
+    available: true,
+    bgColor: "bg-[#07071a]",
+    textColor: "text-[#a78bfa]",
+  },
 ]
 
 export default function Home() {

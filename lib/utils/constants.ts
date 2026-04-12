@@ -7,6 +7,7 @@ export const GAME_IDS = {
   FAKE_ARTIST: "fake-artist",
   JUST_ONE: "just-one",
   WAVELENGTH: "wavelength",
+  PHANTOM_INK: "phantom-ink",
 } as const
 
 export type GameId = (typeof GAME_IDS)[keyof typeof GAME_IDS]

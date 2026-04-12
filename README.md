@@ -9,13 +9,17 @@ A web app that generates random prompts for board games:
 - **ito** - 350+ categories with spectrum labels (1-100)
 - **A Fake Artist Goes to New York** - 100+ drawing prompts with hide/reveal
 - **Just One** - 300+ words for cooperative guessing game
-- **Wavelength** - Coming soon!
+- **Phantom Ink** - 100 object cards (5 per card) with parchment aesthetic
+- **Wavelength** - 481 spectrum cards across 5 packs (Original, Family, Edgy, Abstract, Generated)
 
 ## Features
 
 - 3D shelf interface with realistic shadows
 - Smart randomization (no duplicate categories in a row)
-- Mobile-friendly responsive design
+- Mobile-friendly responsive design with swipe gesture support
+- Landscape mode optimisation for horizontal cards (Wavelength)
+- Per-game theming faithful to each game's visual identity
+- Pack filter with localStorage persistence (Wavelength)
 - Error handling
 
 ## Tech Stack
@@ -43,10 +47,10 @@ Open [http://localhost:3000](http://localhost:3000)
 ```
 app/
 ├── components/        # GameShelf, ErrorBoundary
-├── games/            # ito, fake-artist, just-one
+├── games/            # ito, fake-artist, just-one, phantom-ink, wavelength
 └── page.tsx          # Main orchestrator
 
-data/                 # Categories and prompts
+data/                 # Categories, prompts and card data for all games
 lib/utils/           # Random selection, constants
 ```
 
