@@ -11,6 +11,7 @@ interface Game {
   bgColor: string
   textColor: string
   fontClass?: string
+  preserveCase?: boolean
 }
 
 interface GameShelfProps {
@@ -90,13 +91,20 @@ export function GameShelf({ games }: GameShelfProps) {
         cells.push(
           <div
             key={`${row}-${col}`}
-            className="relative bg-gray-50"
+            className="relative bg-transparent"
             style={{
               width: `${CUBE_SIZE}px`,
               height: `${CUBE_SIZE}px`,
             }}
           >
             {game ? <GameBox game={game} /> : null}
+            {/* Cubby depth: inset shadow overlaid on top of content to simulate recessed interior */}
+            <div
+              className="absolute inset-0 pointer-events-none z-10"
+              style={{
+                boxShadow: "inset 5px 5px 14px rgba(0,0,0,0.22), inset -3px -3px 8px rgba(0,0,0,0.10)",
+              }}
+            />
           </div>
         )
         if (game) gameIndex++
@@ -107,6 +115,39 @@ export function GameShelf({ games }: GameShelfProps) {
     const totalWidth = cols * CUBE_SIZE + (cols + 1) * DIVIDER_SIZE
     const totalHeight = rows * CUBE_SIZE + (rows + 1) * DIVIDER_SIZE
 
+    // Explicit divider elements so the grid background can be transparent
+    const dividers = []
+    // Horizontal boards: lighter on top face, subtle shadow cast downward
+    for (let i = 0; i <= rows; i++) {
+      dividers.push(
+        <div
+          key={`h${i}`}
+          className="absolute left-0 right-0"
+          style={{
+            top: `${i * (CUBE_SIZE + DIVIDER_SIZE)}px`,
+            height: `${DIVIDER_SIZE}px`,
+            background: "linear-gradient(to bottom, #faf8f4 0%, #ede8df 60%, #e0d9ce 100%)",
+            boxShadow: "0 2px 5px rgba(0,0,0,0.12)",
+          }}
+        />
+      )
+    }
+    // Vertical boards: lighter on left face, subtle shadow cast rightward
+    for (let j = 0; j <= cols; j++) {
+      dividers.push(
+        <div
+          key={`v${j}`}
+          className="absolute top-0 bottom-0"
+          style={{
+            left: `${j * (CUBE_SIZE + DIVIDER_SIZE)}px`,
+            width: `${DIVIDER_SIZE}px`,
+            background: "linear-gradient(to right, #faf8f4 0%, #ede8df 60%, #e0d9ce 100%)",
+            boxShadow: "2px 0 5px rgba(0,0,0,0.09)",
+          }}
+        />
+      )
+    }
+
     return (
       <div className="relative">
         <div
@@ -114,9 +155,13 @@ export function GameShelf({ games }: GameShelfProps) {
           style={{
             width: `${totalWidth}px`,
             height: `${totalHeight}px`,
+            // Unit drop shadow: depth against the wall + subtle edge definition
+            boxShadow: "0 12px 48px rgba(0,0,0,0.28), 0 3px 10px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(0,0,0,0.06)",
           }}
         >
-          {/* Grid of cubes */}
+          {/* Shelf boards drawn explicitly so cells can be transparent */}
+          {dividers}
+          {/* Grid of cubes — no background so empty cells show the wall */}
           <div
             className="absolute inset-0 grid"
             style={{
@@ -124,14 +169,13 @@ export function GameShelf({ games }: GameShelfProps) {
               gridTemplateRows: `repeat(${rows}, ${CUBE_SIZE}px)`,
               gap: `${DIVIDER_SIZE}px`,
               padding: `${DIVIDER_SIZE}px`,
-              backgroundColor: "white",
             }}
           >
             {cells}
           </div>
         </div>
         {/* Floor shadow */}
-        <div className="absolute -bottom-4 left-8 right-8 h-8 bg-black/10 rounded-full blur-2xl" />
+        <div className="absolute -bottom-5 left-4 right-4 h-10 bg-black/20 rounded-full blur-2xl" />
       </div>
     )
   }
@@ -233,18 +277,18 @@ function GameBox({ game }: GameBoxProps) {
       onMouseLeave={() => setIsHovered(false)}
       className="absolute inset-0 cursor-pointer group"
     >
-      {/* Game box filling the cube interior 100% */}
+      {/* Game box slightly inset from cubby edges — sits inside the shelf */}
       <div
         className={`
-          h-full w-full rounded-sm shadow-lg transition-all duration-200 relative overflow-hidden
+          h-full w-full shadow-md transition-all duration-200 relative overflow-hidden
           ${game.bgColor}
-          ${isHovered ? "shadow-2xl brightness-105" : ""}
+          ${isHovered ? "shadow-xl brightness-105" : ""}
         `}
       >
         {/* Game title - vertical text with fixed size */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="transform -rotate-90 origin-center whitespace-nowrap">
-            <h3 className={`font-bold text-base ${game.textColor} tracking-wider uppercase ${game.fontClass ?? ""}`}>
+            <h3 className={`font-bold text-base ${game.textColor} tracking-wider ${game.preserveCase ? "" : "uppercase"} ${game.fontClass ?? ""}`}>
               {game.name === "A Fake Artist Goes to New York" ? "A Fake Artist" : game.name}
             </h3>
           </div>

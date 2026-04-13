@@ -10,6 +10,7 @@ const games = [
     bgColor: "bg-yellow-400",
     textColor: "text-gray-800",
     fontClass: "font-[family-name:var(--font-space-grotesk)]",
+    preserveCase: true,
   },
   {
     id: GAME_IDS.FAKE_ARTIST,
@@ -31,16 +32,16 @@ const games = [
     id: GAME_IDS.PHANTOM_INK,
     name: "Phantom Ink",
     available: true,
-    bgColor: "bg-[#0d0b08]",
-    textColor: "text-[#C9A84C]",
+    bgColor: "bg-[#C9A84C]",
+    textColor: "text-[#0d0b08]",
     fontClass: "font-[family-name:var(--font-cinzel)]",
   },
   {
     id: GAME_IDS.WAVELENGTH,
     name: "Wavelength",
     available: true,
-    bgColor: "bg-[#07071a]",
-    textColor: "text-[#a78bfa]",
+    bgColor: "bg-[#4f46e5]",
+    textColor: "text-white",
     fontClass: "font-[family-name:var(--font-outfit)]",
   },
 ]
