@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useMemo } from "react"
+import { useState, useMemo } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Eye } from "lucide-react"
@@ -33,9 +33,15 @@ export function JustOneGenerator() {
   const [currentWord, setCurrentWord] = useState<string | null>(null)
   const [isRevealed, setIsRevealed] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
-  const touchStart = useRef<number | null>(null)
-  const touchEnd = useRef<number | null>(null)
 
+  // Scale font size down for long words; base size unchanged for ≤6 chars
+  const revealFontSize = useMemo(() => {
+    if (!currentWord) return "clamp(2.5rem,10vw,5rem)"
+    const len = currentWord.length
+    if (len <= 6) return "clamp(2.5rem,10vw,5rem)"
+    const scale = Math.max(0.38, 6 / len)
+    return `clamp(${(2.5 * scale).toFixed(2)}rem,${(10 * scale).toFixed(1)}vw,${(5 * scale).toFixed(2)}rem)`
+  }, [currentWord])
   const generateRandomWord = () => {
     setIsAnimating(true)
     setIsRevealed(false)
@@ -55,31 +61,6 @@ export function JustOneGenerator() {
 
   const toggleReveal = () => {
     setIsRevealed(v => !v)
-  }
-
-  const minSwipeDistance = 50
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchEnd.current = null
-    touchStart.current = e.targetTouches[0].clientX
-  }
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    e.preventDefault()
-    touchEnd.current = e.targetTouches[0].clientX
-  }
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStart.current === null || touchEnd.current === null) return
-
-    const distance = touchStart.current - touchEnd.current
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-
-    if (isLeftSwipe || isRightSwipe) {
-      e.stopPropagation()
-      if (!isAnimating) generateRandomWord()
-    }
   }
 
   return (
@@ -128,20 +109,13 @@ export function JustOneGenerator() {
       <div className="flex-1 flex items-stretch px-4 sm:px-6 pb-4 sm:pb-6 min-h-0">
         <div className="w-full max-w-lg mx-auto flex flex-col">
           <div
-            className={`bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border-4 border-white/20 transition-all duration-300 flex-1 flex flex-col ${
-              isAnimating ? "scale-95 opacity-90" : "scale-100 opacity-100"
+            className={`bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border-4 border-white/20 transition-all duration-200 flex-1 flex flex-col ${
+              isAnimating ? "opacity-0 scale-[0.97]" : "opacity-100 scale-100"
             }`}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
           >
             <div className="p-6 sm:p-10 flex-1 flex flex-col">
               {currentWord ? (
-                <div
-                  className={`transition-all duration-300 flex-1 flex flex-col ${
-                    isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
-                  }`}
-                >
+                <div className="flex-1 flex flex-col">
                   {/* 3D flip reveal */}
                   <div className="flex-1 flex items-center justify-center">
                     <div className="relative w-full" style={{ perspective: "800px" }}>
@@ -183,8 +157,9 @@ export function JustOneGenerator() {
                         >
                           <div className="text-center px-6 flex items-center justify-center h-full">
                             <h2
-                              className="text-[clamp(2.5rem,10vw,5rem)] text-white leading-tight break-words"
+                              className="text-white leading-tight break-words"
                               style={{
+                                fontSize: revealFontSize,
                                 fontFamily: "var(--font-anybody)",
                                 fontVariationSettings: "'wght' 900, 'wdth' 110",
                               }}

@@ -76,8 +76,8 @@ export function FakeArtistGenerator() {
       <div className="flex-1 flex items-stretch px-4 sm:px-6 pb-4 sm:pb-6 min-h-0">
         <div className="w-full max-w-md mx-auto flex flex-col">
           <div
-            className={`relative rounded-xl flex-1 flex flex-col overflow-hidden transition-all duration-300 ${
-              isAnimating ? "scale-95 opacity-80" : "scale-100 opacity-100"
+            className={`relative rounded-xl flex-1 flex flex-col overflow-hidden transition-all duration-200 ${
+              isAnimating ? "opacity-0 scale-[0.97]" : "opacity-100 scale-100"
             }`}
             style={{
               backgroundColor: "#fff",

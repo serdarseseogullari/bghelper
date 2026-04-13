@@ -10,6 +10,7 @@ interface Game {
   available: boolean
   bgColor: string
   textColor: string
+  fontClass?: string
 }
 
 interface GameShelfProps {
@@ -243,7 +244,7 @@ function GameBox({ game }: GameBoxProps) {
         {/* Game title - vertical text with fixed size */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="transform -rotate-90 origin-center whitespace-nowrap">
-            <h3 className={`font-bold text-base ${game.textColor} tracking-wider uppercase`}>
+            <h3 className={`font-bold text-base ${game.textColor} tracking-wider uppercase ${game.fontClass ?? ""}`}>
               {game.name === "A Fake Artist Goes to New York" ? "A Fake Artist" : game.name}
             </h3>
           </div>

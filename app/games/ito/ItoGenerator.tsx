@@ -136,8 +136,8 @@ export function ItoGenerator() {
 
           {/* Main card */}
           <div
-            className={`relative bg-yellow-400 rounded-lg shadow-2xl transition-all duration-300 flex-1 flex flex-col ${
-              isAnimating ? "scale-95 opacity-90" : "scale-100 rotate-0 opacity-100"
+            className={`relative bg-yellow-400 rounded-lg shadow-2xl transition-all duration-200 flex-1 flex flex-col ${
+              isAnimating ? "opacity-0 scale-[0.97]" : "opacity-100 scale-100"
             }`}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
@@ -145,11 +145,7 @@ export function ItoGenerator() {
           >
             <div className="relative p-6 sm:p-10 md:p-14 flex-1 flex flex-col">
               {currentCategory ? (
-                <div
-                  className={`transition-all duration-300 flex-1 flex flex-col justify-between ${
-                    isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
-                  }`}
-                >
+                <div className="flex-1 flex flex-col justify-between">
                   {/* Category text */}
                   <div className="flex-1 flex items-center justify-center">
                     <h2 className="text-[clamp(1.5rem,6vw,3rem)] font-medium text-gray-900 text-center leading-tight px-4">

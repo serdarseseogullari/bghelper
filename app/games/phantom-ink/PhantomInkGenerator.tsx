@@ -124,7 +124,7 @@ export function PhantomInkGenerator() {
           {/* Parchment card */}
           <div
             className={`relative flex-1 flex flex-col rounded-sm transition-all duration-200 ${
-              isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
+              isAnimating ? "opacity-0 scale-[0.97]" : "opacity-100 scale-100"
             }`}
             style={{
               background: "linear-gradient(160deg, #f5e9ce 0%, #ede0c0 40%, #e8d5a8 100%)",

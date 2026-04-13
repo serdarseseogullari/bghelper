@@ -341,7 +341,7 @@ export function WavelengthGenerator() {
           {/* Split spectrum card */}
           <div
             className={`relative flex-1 flex flex-col rounded-2xl overflow-hidden transition-all duration-200 ${
-              isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
+              isAnimating ? "opacity-0 scale-[0.97]" : "opacity-100 scale-100"
             }`}
             style={{ boxShadow: "0 16px 60px rgba(0,0,0,0.55)" }}
             onTouchStart={onTouchStart}
@@ -359,7 +359,7 @@ export function WavelengthGenerator() {
                     <SpectrumArrowLeft />
                   </div>
                   <h2
-                    className="text-center text-[clamp(1.1rem,3.5vw,1.9rem)] leading-tight"
+                    className="text-center text-[clamp(1.6rem,4vw,2.2rem)] leading-tight"
                     style={{ color: "#1a120a", letterSpacing: "-0.01em", fontWeight: 600 }}
                   >
                     {currentCard.left}
@@ -378,7 +378,7 @@ export function WavelengthGenerator() {
                     <SpectrumArrowRight />
                   </div>
                   <h2
-                    className="text-center text-[clamp(1.1rem,3.5vw,1.9rem)] leading-tight"
+                    className="text-center text-[clamp(1.6rem,4vw,2.2rem)] leading-tight"
                     style={{ color: "#1a120a", letterSpacing: "-0.01em", fontWeight: 600 }}
                   >
                     {currentCard.right}
@@ -404,10 +404,13 @@ export function WavelengthGenerator() {
 
             {/* Next card button — pinned to bottom of card */}
             <div
-              className="shrink-0 flex items-center justify-between px-5 sm:px-8 py-3 sm:py-4 landscape:py-3"
-              style={{ background: "rgba(8,6,25,0.65)", backdropFilter: "blur(8px)", borderTop: "1px solid rgba(255,255,255,0.07)" }}
+              className="shrink-0 grid items-center px-5 sm:px-8 py-3 sm:py-4 landscape:py-3"
+              style={{ gridTemplateColumns: "1fr auto 1fr", background: "rgba(8,6,25,0.65)", backdropFilter: "blur(8px)", borderTop: "1px solid rgba(255,255,255,0.07)" }}
             >
-              {/* Pack badge */}
+              {/* Empty left spacer — balances button width so badge stays centred */}
+              <div />
+
+              {/* Pack badge — centred */}
               <span
                 className="text-xs px-2.5 py-1 rounded-full font-medium"
                 style={{
@@ -416,9 +419,10 @@ export function WavelengthGenerator() {
                   fontFamily: "var(--font-outfit), sans-serif",
                 }}
               >
-                {currentCard ? PACK_LABELS[currentCard.pack] : "–"}
+                {currentCard ? `Source: ${PACK_LABELS[currentCard.pack]}` : "–"}
               </span>
 
+              <div className="flex justify-end">
               <button
                 onClick={pickNextCard}
                 disabled={isAnimating || cardPool.length === 0}
@@ -440,6 +444,7 @@ export function WavelengthGenerator() {
                   </>
                 )}
               </button>
+              </div>
             </div>
           </div>
         </div>
