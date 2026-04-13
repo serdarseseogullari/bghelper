@@ -102,7 +102,7 @@ export function GameShelf({ games }: GameShelfProps) {
             <div
               className="absolute inset-0 pointer-events-none z-10"
               style={{
-                boxShadow: "inset 5px 5px 14px rgba(0,0,0,0.22), inset -3px -3px 8px rgba(0,0,0,0.10)",
+                boxShadow: "inset 4px 4px 10px rgba(0,0,0,0.20), inset -2px -2px 6px rgba(0,0,0,0.08)",
               }}
             />
           </div>
@@ -126,8 +126,8 @@ export function GameShelf({ games }: GameShelfProps) {
           style={{
             top: `${i * (CUBE_SIZE + DIVIDER_SIZE)}px`,
             height: `${DIVIDER_SIZE}px`,
-            background: "linear-gradient(to bottom, #faf8f4 0%, #ede8df 60%, #e0d9ce 100%)",
-            boxShadow: "0 2px 5px rgba(0,0,0,0.12)",
+            background: "linear-gradient(to bottom, #ffffff 0%, #f4f3f1 60%, #ebebea 100%)",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.10)",
           }}
         />
       )
@@ -141,8 +141,8 @@ export function GameShelf({ games }: GameShelfProps) {
           style={{
             left: `${j * (CUBE_SIZE + DIVIDER_SIZE)}px`,
             width: `${DIVIDER_SIZE}px`,
-            background: "linear-gradient(to right, #faf8f4 0%, #ede8df 60%, #e0d9ce 100%)",
-            boxShadow: "2px 0 5px rgba(0,0,0,0.09)",
+            background: "linear-gradient(to right, #ffffff 0%, #f4f3f1 60%, #ebebea 100%)",
+            boxShadow: "2px 0 4px rgba(0,0,0,0.07)",
           }}
         />
       )

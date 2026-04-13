@@ -76,9 +76,7 @@ export function FakeArtistGenerator() {
       <div className="flex-1 flex items-stretch px-4 sm:px-6 pb-4 sm:pb-6 min-h-0">
         <div className="w-full max-w-md mx-auto flex flex-col">
           <div
-            className={`relative rounded-xl flex-1 flex flex-col overflow-hidden transition-all duration-200 ${
-              isAnimating ? "opacity-0 scale-[0.97]" : "opacity-100 scale-100"
-            }`}
+            className="relative rounded-xl flex-1 flex flex-col overflow-hidden"
             style={{
               backgroundColor: "#fff",
               /* outer black border via box-shadow so it sits outside the card, doesn't eat into content */
@@ -115,7 +113,7 @@ export function FakeArtistGenerator() {
                   >
                     Theme
                   </span>
-                  <span className="text-[#D21B7F] font-bold uppercase font-[family-name:var(--font-macondo)] text-base sm:text-lg leading-tight truncate">
+                  <span className={`text-[#D21B7F] font-bold uppercase font-[family-name:var(--font-macondo)] text-base sm:text-lg leading-tight truncate transition-opacity duration-150 ${isAnimating ? "opacity-0" : "opacity-100"}`}>
                     {currentPrompt?.category ?? "—"}
                   </span>
                 </div>
@@ -133,16 +131,16 @@ export function FakeArtistGenerator() {
                   >
                     Title
                   </span>
-                  {/* Fixed-height container so show/hide never shifts layout */}
-                  <div style={{ minHeight: "1.65rem", display: "flex", alignItems: "center" }}>
+                  {/* Fixed-height container — never shifts regardless of content */}
+                  <div className={`overflow-hidden transition-opacity duration-150 ${isAnimating ? "opacity-0" : "opacity-100"}`} style={{ height: "1.75rem", display: "flex", alignItems: "center", minWidth: 0 }}>
                     {!currentPrompt ? (
                       <span className="text-[#D21B7F]/25 text-sm">—</span>
                     ) : isPromptHidden ? (
-                      <span className="text-[#D21B7F]/40 font-bold font-[family-name:var(--font-macondo)] text-base sm:text-lg tracking-widest">
+                      <span className="text-[#D21B7F]/40 font-bold font-[family-name:var(--font-macondo)] text-base sm:text-lg tracking-widest whitespace-nowrap">
                         {"*".repeat(Math.min(currentPrompt.prompt.length, 8))}
                       </span>
                     ) : (
-                      <span className="text-[#D21B7F] font-bold uppercase font-[family-name:var(--font-macondo)] text-base sm:text-lg leading-tight">
+                      <span className="text-[#D21B7F] font-bold uppercase font-[family-name:var(--font-macondo)] text-base sm:text-lg whitespace-nowrap overflow-hidden text-ellipsis">
                         {currentPrompt.prompt}
                       </span>
                     )}
