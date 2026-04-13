@@ -24,7 +24,7 @@ const DIVIDER_SIZE = 16 // White divider thickness
 
 // Responsive grid configurations
 const GRID_CONFIGS = {
-  mobile: { rows: 6, cols: 2 },
+  mobile: { rows: 4, cols: 2 },
   sm: { rows: 4, cols: 3 },
   md: { rows: 3, cols: 4 },
   xl: { rows: 2, cols: 6 },
@@ -182,7 +182,7 @@ export function GameShelf({ games }: GameShelfProps) {
 
   return (
     <div
-      className={`min-h-screen relative flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 transition-colors duration-500`}
+      className={`min-h-screen sm:h-[100dvh] sm:overflow-hidden relative flex flex-col items-center justify-center sm:justify-start px-4 pt-4 sm:px-6 sm:pt-6 md:px-8 md:pt-8 transition-colors duration-500`}
       style={
         isDark
           ? {
@@ -216,8 +216,8 @@ export function GameShelf({ games }: GameShelfProps) {
         )}
       </button>
 
-      {/* BGHelper Logo */}
-      <div className="mb-16 md:mb-20 lg:mb-24 z-20 relative">
+      {/* BGHelper Logo — mobile: normal flow above shelf; sm+: flex-1 fills upper wall, centers logo within it */}
+      <div className="mb-8 sm:mb-0 sm:flex-1 sm:flex sm:items-center sm:justify-center z-20 relative">
         {/* Light mode: solid text */}
         <h1 className="font-[family-name:var(--font-pacifico)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl select-none text-gray-900 dark:hidden">
           BGHelper

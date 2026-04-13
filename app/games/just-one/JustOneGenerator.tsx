@@ -1,15 +1,23 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Shuffle, Eye } from "lucide-react"
+import { ArrowLeft, Shuffle, Eye, SlidersHorizontal } from "lucide-react"
 
-import { justOneWords } from "@/data/just-one-words"
+import { justOneWords, PACK_LABELS, type JustOnePack } from "@/data/just-one-words"
 import { getRandomItem } from "@/lib/utils/random"
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
 
 const PURPLE = "#7c3aed"
+const ALL_PACKS: JustOnePack[] = ["base", "new-edition", "generated"]
+
+function getPackCounts() {
+  const counts = { base: 0, "new-edition": 0, generated: 0 } as Record<JustOnePack, number>
+  for (const w of justOneWords) counts[w.pack]++
+  return counts
+}
+const PACK_COUNTS = getPackCounts()
 
 const TITLE_LETTERS = ["J", "U", "S", "T", null, "O", "N", "E"]
 const WDTH_VALUES = [85, 105, 90, 75, 0, 110, 80, 100]
@@ -33,8 +41,46 @@ export function JustOneGenerator() {
   const [currentWord, setCurrentWord] = useState<string | null>(null)
   const [isRevealed, setIsRevealed] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [showPackFilter, setShowPackFilter] = useState(false)
+  const [enabledPacks, setEnabledPacks] = useState<Set<JustOnePack>>(() => {
+    if (typeof window === "undefined") return new Set(ALL_PACKS)
+    try {
+      const saved = localStorage.getItem("jo-packs")
+      return saved ? new Set(JSON.parse(saved) as JustOnePack[]) : new Set(ALL_PACKS)
+    } catch {
+      return new Set(ALL_PACKS)
+    }
+  })
+  const filterRef = useRef<HTMLDivElement>(null)
 
-  // Scale font size down for long words; base size unchanged for ≤6 chars
+  // Close filter dropdown on outside click
+  useEffect(() => {
+    if (!showPackFilter) return
+    const handler = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setShowPackFilter(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [showPackFilter])
+
+  const togglePack = (pack: JustOnePack) => {
+    setEnabledPacks(prev => {
+      const next = new Set(prev)
+      if (next.has(pack) && next.size === 1) return prev // keep at least one
+      next.has(pack) ? next.delete(pack) : next.add(pack)
+      localStorage.setItem("jo-packs", JSON.stringify([...next]))
+      return next
+    })
+  }
+
+  const wordPool = useMemo(
+    () => justOneWords.filter(w => enabledPacks.has(w.pack)).map(w => w.word),
+    [enabledPacks]
+  )
+
+  // Scale font size down for long words
   const revealFontSize = useMemo(() => {
     if (!currentWord) return "clamp(2.5rem,10vw,5rem)"
     const len = currentWord.length
@@ -42,17 +88,18 @@ export function JustOneGenerator() {
     const scale = Math.max(0.38, 6 / len)
     return `clamp(${(2.5 * scale).toFixed(2)}rem,${(10 * scale).toFixed(1)}vw,${(5 * scale).toFixed(2)}rem)`
   }, [currentWord])
+
   const generateRandomWord = () => {
     setIsAnimating(true)
     setIsRevealed(false)
 
     setTimeout(() => {
       try {
-        const newWord = getRandomItem([...justOneWords], currentWord)
+        const newWord = getRandomItem(wordPool, currentWord ?? undefined)
         setCurrentWord(newWord)
       } catch (error) {
         console.error("Error generating word:", error)
-        setCurrentWord(justOneWords[0])
+        setCurrentWord(wordPool[0] ?? null)
       } finally {
         setIsAnimating(false)
       }
@@ -67,7 +114,7 @@ export function JustOneGenerator() {
     <div className="h-[100dvh] overflow-hidden flex flex-col" style={{ background: PURPLE }}>
 
       {/* Header row */}
-      <div className="shrink-0 h-14 flex items-center px-4 md:px-6 z-50">
+      <div className="shrink-0 h-14 flex items-center justify-between px-4 md:px-6 z-50">
         <Button asChild
           className="bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 shadow-lg font-medium transition-colors backdrop-blur-sm"
         >
@@ -76,6 +123,40 @@ export function JustOneGenerator() {
             Back to Shelf
           </Link>
         </Button>
+
+        {/* Pack filter */}
+        <div className="relative" ref={filterRef}>
+          <button
+            onClick={() => setShowPackFilter(v => !v)}
+            className="p-2 rounded-lg bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors"
+            aria-label="Filter packs"
+          >
+            <SlidersHorizontal className="w-5 h-5" />
+          </button>
+
+          {showPackFilter && (
+            <div
+              className="absolute right-0 top-10 z-50 rounded-xl shadow-2xl border border-white/10 p-3 min-w-[200px]"
+              style={{ background: "#5b21b6" }}
+            >
+              <p className="text-white/50 text-xs uppercase tracking-widest mb-2 px-1">Word Packs</p>
+              {ALL_PACKS.map(pack => (
+                <label key={pack} className="flex items-center justify-between gap-3 px-2 py-1.5 rounded-lg hover:bg-white/10 cursor-pointer transition-colors">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={enabledPacks.has(pack)}
+                      onChange={() => togglePack(pack)}
+                      className="accent-white w-4 h-4"
+                    />
+                    <span className="text-white text-sm font-medium">{PACK_LABELS[pack]}</span>
+                  </div>
+                  <span className="text-white/40 text-xs">{PACK_COUNTS[pack]}</span>
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Title zone */}
