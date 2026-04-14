@@ -4,8 +4,10 @@ import { useState, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Languages } from "lucide-react"
-import { itoCategories, type ItoCategory } from "@/data/ito-categories"
-import { itoCategoriesTR } from "@/data/ito-categories-tr"
+import itoCategories from "@/data/ito/categories.json"
+import itoCategoriesTR from "@/data/ito/categories-tr.json"
+
+type ItoCategory = { text: string; lowLabel: string; highLabel: string }
 import { getRandomItem } from "@/lib/utils/random"
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
 

@@ -5,19 +5,28 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Shuffle, Eye, SlidersHorizontal } from "lucide-react"
 
-import { justOneWords, PACK_LABELS, type JustOnePack } from "@/data/just-one-words"
+import baseWords from "@/data/just-one/base.json"
+import newEditionWords from "@/data/just-one/new-edition.json"
+import generatedWords from "@/data/just-one/generated.json"
+
+type JustOnePack = "base" | "new-edition" | "generated"
+
+const PACK_LABELS: Record<JustOnePack, string> = {
+  "base": "2018 Base",
+  "new-edition": "2025 Edition",
+  "generated": "Generated",
+}
 import { getRandomItem } from "@/lib/utils/random"
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
 
 const PURPLE = "#7c3aed"
 const ALL_PACKS: JustOnePack[] = ["base", "new-edition", "generated"]
 
-function getPackCounts() {
-  const counts = { base: 0, "new-edition": 0, generated: 0 } as Record<JustOnePack, number>
-  for (const w of justOneWords) counts[w.pack]++
-  return counts
+const PACK_COUNTS: Record<JustOnePack, number> = {
+  base: baseWords.length,
+  "new-edition": newEditionWords.length,
+  generated: generatedWords.length,
 }
-const PACK_COUNTS = getPackCounts()
 
 const TITLE_LETTERS = ["J", "U", "S", "T", null, "O", "N", "E"]
 const WDTH_VALUES = [85, 105, 90, 75, 0, 110, 80, 100]
@@ -75,10 +84,13 @@ export function JustOneGenerator() {
     })
   }
 
-  const wordPool = useMemo(
-    () => justOneWords.filter(w => enabledPacks.has(w.pack)).map(w => w.word),
-    [enabledPacks]
-  )
+  const wordPool = useMemo(() => {
+    const pool: string[] = []
+    if (enabledPacks.has("base")) pool.push(...baseWords)
+    if (enabledPacks.has("new-edition")) pool.push(...newEditionWords)
+    if (enabledPacks.has("generated")) pool.push(...generatedWords)
+    return pool
+  }, [enabledPacks])
 
   // Scale font size down for long words
   const revealFontSize = useMemo(() => {

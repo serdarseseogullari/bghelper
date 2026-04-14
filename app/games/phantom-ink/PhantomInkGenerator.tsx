@@ -4,7 +4,7 @@ import { useState, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, ChevronRight } from "lucide-react"
-import { phantomInkCards } from "@/data/phantom-ink-cards"
+import phantomInkCards from "@/data/phantom-ink/cards.json"
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
 
 // Corner flourish SVG for parchment card decoration
@@ -31,7 +31,7 @@ export function PhantomInkGenerator() {
   const touchStart = useRef<number | null>(null)
   const touchEnd = useRef<number | null>(null)
 
-  const currentCard = cardIndex !== null ? phantomInkCards[cardIndex] : null
+  const currentCard = cardIndex !== null ? phantomInkCards[cardIndex] as string[] : null
 
   const nextCard = () => {
     if (isAnimating) return
@@ -168,7 +168,7 @@ export function PhantomInkGenerator() {
 
                   {/* Objects list */}
                   <ol className="space-y-3 sm:space-y-4">
-                    {currentCard.objects.map((obj, i) => (
+                    {currentCard.map((obj, i) => (
                       <li
                         key={i}
                         className="flex items-baseline gap-3 sm:gap-4"

@@ -3,17 +3,32 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { ArrowLeft as ArrowLeftIcon, SlidersHorizontal, ChevronRight } from "lucide-react"
-import { wavelengthCards, PACK_LABELS, type WavelengthCard, type WavelengthPack } from "@/data/wavelength-cards"
+import originalCards from "@/data/wavelength/original.json"
+import familyCards from "@/data/wavelength/family.json"
+import edgyCards from "@/data/wavelength/edgy.json"
+import abstractCards from "@/data/wavelength/abstract.json"
+import generatedCards from "@/data/wavelength/generated.json"
+
+type WavelengthPack = "original" | "family" | "edgy" | "abstract" | "generated"
+
+const PACK_LABELS: Record<WavelengthPack, string> = {
+  original: "Original",
+  family: "Family",
+  edgy: "Edgy",
+  abstract: "Abstract",
+  generated: "Generated",
+}
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
 
 const ALL_PACKS: WavelengthPack[] = ["original", "family", "edgy", "abstract", "generated"]
 
-function getPackCounts() {
-  const counts = { original: 0, family: 0, edgy: 0, abstract: 0, generated: 0 } as Record<WavelengthPack, number>
-  for (const c of wavelengthCards) counts[c.pack]++
-  return counts
+const PACK_COUNTS: Record<WavelengthPack, number> = {
+  original: originalCards.length,
+  family: familyCards.length,
+  edgy: edgyCards.length,
+  abstract: abstractCards.length,
+  generated: generatedCards.length,
 }
-const PACK_COUNTS = getPackCounts()
 
 // Deterministic pastel-ish hue pair from card's position in the full array
 function getCardColors(globalIndex: number) {
@@ -131,7 +146,7 @@ function Starfield() {
 
 export function WavelengthGenerator() {
   // Store the actual card object — so pack changes don't disrupt the current display
-  const [currentCard, setCurrentCard] = useState<WavelengthCard | null>(null)
+  const [currentCard, setCurrentCard] = useState<[string, string] | null>(null)
   const [globalIndex, setGlobalIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [showPackFilter, setShowPackFilter] = useState(false)
@@ -152,10 +167,15 @@ export function WavelengthGenerator() {
   const filterRef = useRef<HTMLDivElement>(null)
 
   // Filtered pool — only used when picking the NEXT card
-  const cardPool = useMemo(
-    () => wavelengthCards.filter(c => enabledPacks.has(c.pack)),
-    [enabledPacks]
-  )
+  const cardPool = useMemo(() => {
+    const pool: [string, string][] = []
+    if (enabledPacks.has("original")) pool.push(...originalCards as [string, string][])
+    if (enabledPacks.has("family")) pool.push(...familyCards as [string, string][])
+    if (enabledPacks.has("edgy")) pool.push(...edgyCards as [string, string][])
+    if (enabledPacks.has("abstract")) pool.push(...abstractCards as [string, string][])
+    if (enabledPacks.has("generated")) pool.push(...generatedCards as [string, string][])
+    return pool
+  }, [enabledPacks])
 
   const colors = useMemo(() => getCardColors(globalIndex), [globalIndex])
 
@@ -171,7 +191,7 @@ export function WavelengthGenerator() {
         } while (cardPool[idx] === currentCard && cardPool.length > 1)
         const picked = cardPool[idx]
         setCurrentCard(picked)
-        setGlobalIndex(wavelengthCards.indexOf(picked))
+        setGlobalIndex(idx)
       } catch {
         setCurrentCard(cardPool[0])
         setGlobalIndex(0)
@@ -362,7 +382,7 @@ export function WavelengthGenerator() {
                     className="text-center text-[clamp(1.6rem,4vw,2.2rem)] leading-tight"
                     style={{ color: "#1a120a", letterSpacing: "-0.01em", fontWeight: 600 }}
                   >
-                    {currentCard.left}
+                    {currentCard[0]}
                   </h2>
                 </div>
 
@@ -381,7 +401,7 @@ export function WavelengthGenerator() {
                     className="text-center text-[clamp(1.6rem,4vw,2.2rem)] leading-tight"
                     style={{ color: "#1a120a", letterSpacing: "-0.01em", fontWeight: 600 }}
                   >
-                    {currentCard.right}
+                    {currentCard[1]}
                   </h2>
                 </div>
               </div>
@@ -419,7 +439,7 @@ export function WavelengthGenerator() {
                   fontFamily: "var(--font-outfit), sans-serif",
                 }}
               >
-                {currentCard ? `Source: ${PACK_LABELS[currentCard.pack]}` : "–"}
+                {currentCard ? `${cardPool.length} cards active` : "–"}
               </span>
 
               <div className="flex justify-end">

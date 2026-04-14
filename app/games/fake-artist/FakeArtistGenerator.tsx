@@ -4,7 +4,9 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Eye, EyeOff, Shuffle } from "lucide-react"
-import { fakeArtistPrompts, type FakeArtistPrompt } from "@/data/fake-artist-prompts"
+import fakeArtistPrompts from "@/data/fake-artist/prompts.json"
+
+type FakeArtistPrompt = { category: string; prompt: string }
 import { getRandomItem } from "@/lib/utils/random"
 import { ANIMATION_DURATION } from "@/lib/utils/constants"
 
